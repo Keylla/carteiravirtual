@@ -35,7 +35,7 @@ public class UsuarioController {
 		
 		UsuarioService usuarioService = new UsuarioService();
 		usuarioService.incluir(usuario);		
-		return "usuario/adicionado";
+		return "acesso/logon";
 	}
 	
 	@RequestMapping("editar")

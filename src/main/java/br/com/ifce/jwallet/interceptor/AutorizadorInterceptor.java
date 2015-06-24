@@ -18,7 +18,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter{
 		if(request.getSession().getAttribute("usuarioLogado")!=null) {
 			return true;
 		} else {
-			response.sendRedirect("/carteiravirtual/logon");
+			response.sendRedirect("/logon");
 			
 			return false;
 		}

@@ -19,7 +19,7 @@
 
   </head>
 
-  <body style="background-image: url('/carteiravirtual/resource/images/background6.png');">
+  <body style="background-image: url('/resource/images/background6.png');">
 
     <div class="container">
     
