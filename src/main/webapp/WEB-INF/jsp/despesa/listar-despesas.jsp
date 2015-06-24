@@ -52,7 +52,9 @@ body {margin-top: 60px;}
         		<th>
 		        	Ano
 		        	<select id="comboAno" class="form-control" >
-			        	<option value="2015"> 2015 </option>        	
+		        		<option value="2014"> 2014 </option>
+		        	    <option value="2015"> 2015 </option>
+			        	<option value="2016"> 2016 </option>        	
 		        	</select>	   
 		        </th>		             	
 		             	
