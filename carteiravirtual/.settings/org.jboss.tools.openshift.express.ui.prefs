@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+org.jboss.tools.openshift.ApplicationId=5536aa304382ec66ac0001c5
+org.jboss.tools.openshift.ApplicationName=carteiravirtual
+org.jboss.tools.openshift.Connection=https\://keylla03%40gmail.com@
+org.jboss.tools.openshift.DeployFolder=webapps
+org.jboss.tools.openshift.Domain=jkins
+org.jboss.tools.openshift.RemoteName=origin
