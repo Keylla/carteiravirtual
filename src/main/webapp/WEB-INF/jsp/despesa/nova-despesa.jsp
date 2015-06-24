@@ -14,7 +14,7 @@
 
 	
 </head>
-	<body style="background-image: url('/carteiravirtual/resource/images/background6.png');">
+	<body style="background-image: url('<c:url value="/resource/images/background6.png"/>'>
 
 	
 	<div class="page-header">
@@ -55,7 +55,7 @@
 				 	 <label>Data da Despesa </label><br> <input  style="width: 178px"  type="text"  class="form-control" name="dataDespesa" required="required" autofocus="autofocus"/>
 				</div>
 				<div class="form-group">
-					<label>Data de Vencimento </label><br> <input type="date" dateFormat: 'dd/mm/yyyy' style="width: 178px" type="text"  class="form-control" name="dataVencimento"/>
+					<label>Data de Vencimento </label><br> <input type="date" dateFormat: "dd/mm/yyyy" style="width: 178px" type="text"  class="form-control" name="dataVencimento"/>
 				</div>
 				<div class="form-group">
 					<input type="checkbox"  name="flagParcelado" onclick="document.getElementById('parcelas').disabled = !this.checked;"><label>Compra Parcelada</label>

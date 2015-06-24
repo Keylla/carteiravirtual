@@ -8,7 +8,8 @@
 		<link href="<c:url value="/resource/css/bootstrap.min.css"/>" rel="stylesheet">
 		<title>Cadastro de Usuário</title>
 	</head>
-	<body>
+<body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">  
+
 		<div class="page-header">
 		<c:import url="../geral/cabecalhoCadUsuario.jsp"></c:import>
 		</div>
@@ -17,10 +18,6 @@
 	
 				<form action="adicionar" method="post">
 						<table >				
-							<tr>
-								<td>  Código </td>
-								<td>  <input type="text" class="form-control" name="id" disabled  > </td>			
-							</tr>
 					        <tr>
 								<td>  Nome   </td>
 								<td>  <input required="required" autofocus="autofocus" type="text" class="form-control" name="NomeDoUsuario" ></td>
@@ -43,7 +40,7 @@
 								<td>
 								 <div align="center">
 								     <button type="submit" class="btn btn-success btn-md" style="width: 200px; height: 35px">Salvar</button> 
-								     <button type="button" class="btn btn-danger btn-md" onclick="window.location.href='/logon'" style="width: 200px; height: 35px">Cancelar</button> 				     				     
+								     <button type="button" class="btn btn-danger btn-md" onclick="window.location.href='../logon'" style="width: 200px; height: 35px">Cancelar</button> 				     				     
 				  				 </div>	
 				 		  </td>
 						</tr>						

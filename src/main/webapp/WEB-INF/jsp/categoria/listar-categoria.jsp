@@ -22,7 +22,8 @@
 
   </head>
 
-<body>
+<body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">  
+
 
 <div class="page-header" >
 <c:import url="../geral/cabecalho.jsp"></c:import>

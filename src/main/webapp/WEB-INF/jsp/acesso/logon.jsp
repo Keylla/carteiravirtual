@@ -19,13 +19,13 @@
 
   </head>
 
-  <body style="background-image: url('/resource/images/background6.png');">
+  <body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
 
     <div class="container">
     
 
       <form class="form-signin" action="login" method="POST">
-        <div align="center"><img alt="Economia" src="/carteiravirtual/resource/images/economizar.png" width=200 height=200 ></div>
+        <div align="center"><img alt="Economia" src="<c:url value="/resource/images/economizar.png"/>" width=200 height=200 ></div>
         <h2 class="form-signin-heading" align="center"><FONT FACE="Tahoma" SIZE="4,5" COLOR="white">Bem Vindo a Carteira Virtual!</FONT></h2>
         <label for="inputEmail" class="sr-only">username</label>    
         <input id="inputEmail" class="form-control" placeholder="usuario" required="required" autofocus="autofocus" type="text" name="userName">
