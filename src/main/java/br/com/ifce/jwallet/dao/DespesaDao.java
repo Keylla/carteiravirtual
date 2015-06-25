@@ -8,11 +8,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
-import org.springframework.asm.Type;
-
 import br.com.ifce.jwallet.controller.AutenticacaoController;
 import br.com.ifce.jwallet.exception.DaoException;
 import br.com.ifce.jwallet.model.Despesa;
@@ -54,35 +50,47 @@ public class DespesaDao {
 				+ "DT_PAGAMENTO, "
 				+ "VLR_PAGO, "
 				+ "FLAG_PARCELADO, "
+				+ "FLAG_MENSAL, "
 				+ "NUM_PARCELAS, "
 				+ "ID_USUARIO) VALUES"
-				+ "(NEXTVAL('SEQ_DESPESAS'),?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "(NEXTVAL('SEQ_DESPESAS'),?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 
 			pstm = con.prepareStatement(sql);
 			pstm.setLong(1, despesa.getCategoria().getId());
-			pstm.setLong(2, despesa.getCredor().getId());
+			if(despesa.getCredor().getId() != null){
+				pstm.setLong(2, despesa.getCredor().getId());
+			}
+			else{
+				pstm.setNull(2, Types.INTEGER);
+			} 
 			if (despesa.getDetalhe() != null){
 				pstm.setString(3, despesa.getDetalhe());
 			}
 			else{
 				pstm.setNull(3, Types.VARCHAR);
 			}
-			if(despesa.getValorDespesa() !=null){
-				pstm.setDouble(4, despesa.getValorDespesa());
-			}
-			else{
-				pstm.setNull(4, Types.DOUBLE);
-			}
+			
+			pstm.setDouble(4, despesa.getValorDespesa());
 			pstm.setDate(5, new java.sql.Date(despesa.getDataDespesa().getTimeInMillis()));
 			if(despesa.getDataVencimento()!=null){
 				pstm.setDate(6, new java.sql.Date(despesa.getDataVencimento().getTimeInMillis()));
 			}
 			else{
-				pstm.setNull(6, Types.DATE);
+				pstm.setDate(6, new java.sql.Date(despesa.getDataDespesa().getTimeInMillis()));
 			}
-			pstm.setString(7, EstadoDespesa.EM_ABERTO.toString());
+			if(despesa.getValorPago() == null || despesa.getValorPago()==0){
+			   pstm.setString(7, EstadoDespesa.EM_ABERTO.toString());
+			}
+			else{
+				if(despesa.getValorPago() ==  despesa.getValorDespesa()){
+					pstm.setString(7, EstadoDespesa.PAGO.toString());
+				}
+				else{
+					pstm.setString(7, EstadoDespesa.PAGO_PARCIAL.toString());
+				}
+			}
 			if(despesa.getDataPagamento() != null){
 				pstm.setDate(8, new java.sql.Date(despesa.getDataPagamento().getTimeInMillis()));
 			}
@@ -99,15 +107,21 @@ public class DespesaDao {
 				pstm.setString(10, despesa.getFlagParcelado());
 			}
 			else{
-				pstm.setNull(10, Types.VARCHAR);
+				pstm.setString(10, "off");
 			}
-			if(despesa.getFlagParcelado() != null){
-				pstm.setInt(11, despesa.getNumParcelas());
+			if(despesa.getFlagMensal() != null){
+				pstm.setString(11, despesa.getFlagMensal());
 			}
 			else{
-				pstm.setNull(11, Types.INTEGER);
+				pstm.setString(11, "off");
 			}
-			pstm.setLong(12, userName.getId());
+			if(despesa.getFlagParcelado() != null){
+				pstm.setInt(12, despesa.getNumParcelas());
+			}
+			else{
+				pstm.setNull(12, Types.INTEGER);
+			}
+			pstm.setLong(13, userName.getId());
 			
 			pstm.execute();
 			
@@ -133,25 +147,76 @@ public class DespesaDao {
 				+ "DT_PAGAMENTO = ?, "
 				+ "VLR_PAGO = ?, "
 				+ "FLAG_PARCELADO = ?, "
-				+ "NUM_PARCELAS = ?, "
-				+ "ID_USUARIO = ? "
+				+ "FLAG_MENSAL = ?, "
+				+ "NUM_PARCELAS = ? "
 				+ "WHERE ID_DESPESA = ?";
 		
 		try {
 
 			pstm = con.prepareStatement(sql);
 			pstm.setLong(1, despesa.getCategoria().getId());
-			pstm.setLong(2, despesa.getCredor().getId());
-			pstm.setString(3, despesa.getDetalhe());
+			if(despesa.getCredor().getId() != null){
+				pstm.setLong(2, despesa.getCredor().getId());
+			}
+			else{
+				pstm.setNull(2, Types.INTEGER);
+			} 
+			if (despesa.getDetalhe() != null){
+				pstm.setString(3, despesa.getDetalhe());
+			}
+			else{
+				pstm.setNull(3, Types.VARCHAR);
+			}
 			pstm.setDouble(4, despesa.getValorDespesa());
 			pstm.setDate(5, new java.sql.Date(despesa.getDataDespesa().getTimeInMillis()));
-			pstm.setDate(6, new java.sql.Date(despesa.getDataVencimento().getTimeInMillis()));
-			pstm.setString(7, EstadoDespesa.EM_ABERTO.toString());
-			pstm.setDate(8, new java.sql.Date(despesa.getDataPagamento().getTimeInMillis()));
-			pstm.setDouble(9, despesa.getValorPago());
-			pstm.setString(10, despesa.getFlagParcelado());
-			pstm.setInt(11, despesa.getNumParcelas());
-			pstm.setLong(12, despesa.getUsuario().getId());
+			if(despesa.getDataVencimento()!=null){
+				pstm.setDate(6, new java.sql.Date(despesa.getDataVencimento().getTimeInMillis()));
+			}
+			else{
+				pstm.setDate(6, new java.sql.Date(despesa.getDataDespesa().getTimeInMillis()));
+			}
+			if(despesa.getValorPago() == null || despesa.getValorPago()==0){
+				   pstm.setString(7, EstadoDespesa.EM_ABERTO.toString());
+				}
+				else{
+					if(despesa.getValorPago() ==  despesa.getValorDespesa()){
+						pstm.setString(7, EstadoDespesa.PAGO.toString());
+					}
+					else{
+						pstm.setString(7, EstadoDespesa.PAGO_PARCIAL.toString());
+					}
+				}
+			if(despesa.getDataPagamento() != null){
+				pstm.setDate(8, new java.sql.Date(despesa.getDataPagamento().getTimeInMillis()));
+			}
+			else{
+				pstm.setNull(8, Types.DATE);
+			}
+			if(despesa.getValorPago() != null){
+				pstm.setDouble(9, despesa.getValorPago());
+			}
+			else{
+				pstm.setNull(9, Types.DOUBLE);
+			}
+			if(despesa.getFlagParcelado() != null){
+				pstm.setString(10, despesa.getFlagParcelado());
+			}
+			else{
+				pstm.setString(10, "off");
+			}
+			if(despesa.getFlagMensal() != null){
+				pstm.setString(11, despesa.getFlagMensal());
+			}
+			else{
+				pstm.setString(11, "off");
+			}
+			if(despesa.getFlagParcelado() != null){
+				pstm.setInt(12, despesa.getNumParcelas());
+			}
+			else{
+				pstm.setNull(12, Types.INTEGER);
+			}
+
 			pstm.setLong(13, despesa.getId());
 			pstm.execute();
 			
@@ -208,7 +273,9 @@ public class DespesaDao {
 				
 				desp.setId(rs.getLong("id_despesa"));
 				desp.setCategoria(categoriaDao.selectById(rs.getLong("id_categoria")));
-				desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));
+				if(rs.getLong("id_credor")>0){
+					desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));				
+				}
 				desp.setDetalhe(rs.getString("detalhe_despesa"));
 				desp.setValorDespesa(rs.getDouble("vlr_despesa"));
 				dataDespesa.setTime(rs.getDate("dt_despesa"));
@@ -216,11 +283,18 @@ public class DespesaDao {
 				dataVencimento.setTime(rs.getDate("dt_vencimento"));
 				desp.setDataVencimento(dataVencimento);
 				desp.setEstadoDespesa(EstadoDespesa.valueOf(rs.getString("estado_despesa")));
-				dataPagamento.setTime(rs.getDate("dt_pagamento"));
-				desp.setDataPagamento(dataPagamento);
-				desp.setValorPago(rs.getDouble("vlr_pago"));
+				if (rs.getDate("dt_pagamento") != null){
+				    dataPagamento.setTime(rs.getDate("dt_pagamento"));
+					desp.setDataPagamento(dataPagamento);
+				}
+				if(rs.getDouble("vlr_pago") >0){
+					desp.setValorPago(rs.getDouble("vlr_pago"));
+				}
 				desp.setFlagParcelado(rs.getString("flag_parcelado"));
-				desp.setNumParcelas(rs.getInt("num_parcelas"));
+				desp.setFlagMensal(rs.getString("flag_mensal"));
+				if(rs.getInt("num_parcelas")>0){
+					desp.setNumParcelas(rs.getInt("num_parcelas"));
+				}
 				desp.setUsuario(usuarioDao.selectById(rs.getLong("id_usuario")));
 				despesas.add(desp);
 			}
@@ -238,29 +312,25 @@ public class DespesaDao {
 	}
 	
 	
-public List<Despesa> selectByPeriodo(int mes){
-	
-		mes = mes -1 ;
-
+public List<Despesa> selectByPeriodo(int mes, int ano){
+	    int mesIndex = mes-1;
 		Calendar dataAtual = Calendar.getInstance();
 		
 		Calendar periodoInicial = Calendar.getInstance();
-		periodoInicial.set(Calendar.MONTH,mes);
+		periodoInicial.set(Calendar.YEAR,ano);
+		periodoInicial.set(Calendar.MONTH,mesIndex);
 		periodoInicial.set(Calendar.DATE,1);
 		
 		Calendar periodoFinal = Calendar.getInstance();
-		periodoFinal.set(Calendar.MONTH,mes);
-		periodoFinal.set(Calendar.DATE,1);
-		
-		
-		periodoFinal.add(Calendar.MONTH, 1);
-		periodoFinal.add(Calendar.DATE, -1);
-		
+		periodoFinal.set(Calendar.YEAR,ano);
+		periodoFinal.set(Calendar.MONTH,mesIndex);
+		periodoFinal.set(Calendar.DATE,periodoFinal.getActualMaximum(Calendar.DAY_OF_MONTH));
+ 		
 		List<Despesa> despesas = new ArrayList<Despesa>();
 		
 		String sql = "SELECT * FROM TB_DESPESAS "
-				+ " WHERE ( DT_VENCIMENTO BETWEEN ? AND ?)  OR"
-				+ "		( (DT_VENCIMENTO < ?) AND (ESTADO_DESPESA = 'EM_ABERTO'))"
+				+ " WHERE  DT_VENCIMENTO BETWEEN ? AND ?  "
+				+ "	AND	ESTADO_DESPESA = 'EM_ABERTO'"
 				+ " AND ID_USUARIO = ?"
 				+ " ORDER BY DT_VENCIMENTO";
 		
@@ -269,8 +339,7 @@ public List<Despesa> selectByPeriodo(int mes){
 			pstm = con.prepareStatement(sql);
 			pstm.setDate(1, new java.sql.Date(periodoInicial.getTimeInMillis()));
 			pstm.setDate(2, new java.sql.Date(periodoFinal.getTimeInMillis()));
-			pstm.setDate(3, new java.sql.Date(dataAtual.getTimeInMillis()));
-			pstm.setLong(4, userName.getId());
+			pstm.setLong(3, userName.getId());
 			
 			ResultSet rs = pstm.executeQuery();
 			
@@ -287,7 +356,9 @@ public List<Despesa> selectByPeriodo(int mes){
 				
 				desp.setId(rs.getLong("id_despesa"));
 				desp.setCategoria(categoriaDao.selectById(rs.getLong("id_categoria")));
-				desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));
+				if(rs.getLong("id_credor")>0){
+					desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));				
+				}
 				desp.setDetalhe(rs.getString("detalhe_despesa"));
 				desp.setValorDespesa(rs.getDouble("vlr_despesa"));
 				dataDespesa.setTime(rs.getDate("dt_despesa"));
@@ -295,11 +366,18 @@ public List<Despesa> selectByPeriodo(int mes){
 				dataVencimento.setTime(rs.getDate("dt_vencimento"));
 				desp.setDataVencimento(dataVencimento);
 				desp.setEstadoDespesa(EstadoDespesa.valueOf(rs.getString("estado_despesa")));
-				dataPagamento.setTime(rs.getDate("dt_pagamento"));
-				desp.setDataPagamento(dataPagamento);
-				desp.setValorPago(rs.getDouble("vlr_pago"));
+				if (rs.getDate("dt_pagamento") != null){
+				    dataPagamento.setTime(rs.getDate("dt_pagamento"));
+					desp.setDataPagamento(dataPagamento);
+				}
+				if(rs.getDouble("vlr_pago") >0){
+					desp.setValorPago(rs.getDouble("vlr_pago"));
+				}
 				desp.setFlagParcelado(rs.getString("flag_parcelado"));
-				desp.setNumParcelas(rs.getInt("num_parcelas"));
+				desp.setFlagMensal(rs.getString("flag_mensal"));
+				if(rs.getInt("num_parcelas")>0){
+					desp.setNumParcelas(rs.getInt("num_parcelas"));
+				}
 				desp.setUsuario(usuarioDao.selectById(rs.getLong("id_usuario")));
 				despesas.add(desp);
 		
@@ -320,12 +398,12 @@ public List<Despesa> selectByPeriodo(int mes){
 public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFinal){
 	
 	List<Despesa> despesas = new ArrayList<Despesa>();
-	
+	System.out.println("esse");
 	String sql = "select c.id_categoria, c.descricao, sum(d.vlr_despesa) total from tb_despesas d "
 			+ "join tb_sub_categoria sc on (d.id_sub_categoria = sc.id_sub_categoria) "
 			+ "join tb_categoria c on (c.id_categoria = sc.id_categoria) "
-			+ "where (d.dt_vencimento between ? and ?) or "
-			+ "   ( (d.dt_vencimento < ?) and (d.estado_despesa = 'EM_ABERTO'))"
+			+ "where d.dt_vencimento between ? and ? "
+			+ " and d.estado_despesa = 'EM_ABERTO'"
 			+ " and id_usuario = ?"
 			+ "group by c.id_categoria";
 	
@@ -334,8 +412,7 @@ public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFi
 		pstm = con.prepareStatement(sql);
 		pstm.setDate(1, new java.sql.Date(periodoInicial.getTimeInMillis()));
 		pstm.setDate(2, new java.sql.Date(periodoFinal.getTimeInMillis()));
-		pstm.setDate(3, new java.sql.Date(periodoFinal.getTimeInMillis()));
-		pstm.setLong(4, userName.getId());
+		pstm.setLong(3, userName.getId());
 		ResultSet rs = pstm.executeQuery();
 		
 		while(rs.next()){
@@ -351,7 +428,9 @@ public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFi
 			
 			desp.setId(rs.getLong("id_despesa"));
 			desp.setCategoria(categoriaDao.selectById(rs.getLong("id_categoria")));
-			desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));
+			if(rs.getLong("id_credor")>0){
+				desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));				
+			}
 			desp.setDetalhe(rs.getString("detalhe_despesa"));
 			desp.setValorDespesa(rs.getDouble("vlr_despesa"));
 			dataDespesa.setTime(rs.getDate("dt_despesa"));
@@ -359,11 +438,18 @@ public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFi
 			dataVencimento.setTime(rs.getDate("dt_vencimento"));
 			desp.setDataVencimento(dataVencimento);
 			desp.setEstadoDespesa(EstadoDespesa.valueOf(rs.getString("estado_despesa")));
-			dataPagamento.setTime(rs.getDate("dt_pagamento"));
-			desp.setDataPagamento(dataPagamento);
-			desp.setValorPago(rs.getDouble("vlr_pago"));
+			if (rs.getDate("dt_pagamento") != null){
+			    dataPagamento.setTime(rs.getDate("dt_pagamento"));
+				desp.setDataPagamento(dataPagamento);
+			}
+			if(rs.getDouble("vlr_pago") >0){
+				desp.setValorPago(rs.getDouble("vlr_pago"));
+			}
 			desp.setFlagParcelado(rs.getString("flag_parcelado"));
-			desp.setNumParcelas(rs.getInt("num_parcelas"));
+			desp.setFlagMensal(rs.getString("flag_mensal"));
+			if(rs.getInt("num_parcelas")>0){
+				desp.setNumParcelas(rs.getInt("num_parcelas"));
+			}
 			desp.setUsuario(usuarioDao.selectById(rs.getLong("id_usuario")));
 			despesas.add(desp);
 	
@@ -449,7 +535,9 @@ public List<Despesa> selectCompetenciaValorByPeriodo(Calendar periodoInicial, Ca
 				
 				desp.setId(rs.getLong("id_despesa"));
 				desp.setCategoria(categoriaDao.selectById(rs.getLong("id_categoria")));
-				desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));
+				if(rs.getLong("id_credor")>0){
+					desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));				
+				}
 				desp.setDetalhe(rs.getString("detalhe_despesa"));
 				desp.setValorDespesa(rs.getDouble("vlr_despesa"));
 				dataDespesa.setTime(rs.getDate("dt_despesa"));
@@ -457,13 +545,20 @@ public List<Despesa> selectCompetenciaValorByPeriodo(Calendar periodoInicial, Ca
 				dataVencimento.setTime(rs.getDate("dt_vencimento"));
 				desp.setDataVencimento(dataVencimento);
 				desp.setEstadoDespesa(EstadoDespesa.valueOf(rs.getString("estado_despesa")));
-				dataPagamento.setTime(rs.getDate("dt_pagamento"));
-				desp.setDataPagamento(dataPagamento);
-				desp.setValorPago(rs.getDouble("vlr_pago"));
+				if (rs.getDate("dt_pagamento") != null){
+				    dataPagamento.setTime(rs.getDate("dt_pagamento"));
+					desp.setDataPagamento(dataPagamento);
+				}
+				if(rs.getDouble("vlr_pago") >0){
+					desp.setValorPago(rs.getDouble("vlr_pago"));
+				}
 				desp.setFlagParcelado(rs.getString("flag_parcelado"));
-				desp.setNumParcelas(rs.getInt("num_parcelas"));
+				desp.setFlagMensal(rs.getString("flag_mensal"));
+				if(rs.getInt("num_parcelas")>0){
+					desp.setNumParcelas(rs.getInt("num_parcelas"));
+				}
 				desp.setUsuario(usuarioDao.selectById(rs.getLong("id_usuario")));
-			
+				
 		
 				
 				

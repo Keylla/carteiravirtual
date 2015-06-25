@@ -1,17 +1,13 @@
 package br.com.ifce.jwallet.controller;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import br.com.ifce.jwallet.model.Categoria;
 import br.com.ifce.jwallet.model.Credor;
 import br.com.ifce.jwallet.model.Despesa;
-
 import br.com.ifce.jwallet.service.CategoriaService;
 import br.com.ifce.jwallet.service.CredorService;
 import br.com.ifce.jwallet.service.DespesaService;
@@ -46,20 +42,31 @@ public class DespesaController {
 	}
 	
 	@RequestMapping("listar-todas")
-	public String listar(Model model){
+	public String listar(Model model, Integer mes, Integer ano){
 		
+		
+		if (mes == null) {
+			Calendar dataAtual = Calendar.getInstance(); 
+			dataAtual.set(Calendar.MINUTE, 0);  
+			dataAtual.set(Calendar.HOUR_OF_DAY, 0);  
+			dataAtual.set(Calendar.SECOND, 0);  
+			dataAtual.set(Calendar.MILLISECOND, 0); 
+			ano = dataAtual.YEAR;
+			mes = dataAtual.MONTH;
+			mes = mes-1;
+						
+		}
+		//Calendar dataAtual = Calendar.getInstance();
+		//int mes = dataAtual.getTime().getMonth();
 		DespesaService service = new DespesaService();
-		
-		Calendar dataAtual = Calendar.getInstance();
-		int mes = dataAtual.getTime().getMonth();
-		List<Despesa> despesas = service.selecionarPorPeriodo(mes);
+		List<Despesa> despesas = service.selecionarPorPeriodo(mes,ano);
 		
 		model.addAttribute("despesas", despesas);
 		return "despesa/listar-despesas";
 	}
 	
 	@RequestMapping("listar-periodo")
-	public String listarPorPeriodo(Model model, Integer mes){
+	public String listarPorPeriodo(Model model, Integer mes, Integer ano){
 
 		if (mes == null) {
 			Calendar dataAtual = Calendar.getInstance(); 
@@ -69,11 +76,13 @@ public class DespesaController {
 			dataAtual.set(Calendar.MILLISECOND, 0); 
 			
 			mes = dataAtual.MONTH;
+			ano = dataAtual.YEAR;
+			mes = mes-1;
 						
 		}
 		
 		DespesaService service = new DespesaService();
-		List<Despesa> despesas = service.selecionarPorPeriodo(mes);
+		List<Despesa> despesas = service.selecionarPorPeriodo(mes,ano);
 		
 		model.addAttribute("despesas", despesas);
 		return "despesa/listar-despesas-por-periodo";

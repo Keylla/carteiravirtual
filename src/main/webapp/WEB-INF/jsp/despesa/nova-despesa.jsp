@@ -12,9 +12,53 @@
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+<script language="JavaScript">
+/* Formatação para qualquer mascara */
+
+	function formatar(src, mask) 
+	{
+		var i = src.value.length;
+		var saida = mask.substring(0,1);
+		var texto = mask.substring(i)
+			if (texto.substring(0,1) != saida) 
+			{
+				src.value += texto.substring(0,1);
+			}
+	}
+	
+	/* Valida Data */
+	
+	var reDate4 = /^((0?[1-9]|[12]\d)\/(0?[1-9]|1[0-2])|30\/(0?[13-9]|1[0-2])|31\/(0?[13578]|1[02]))\/(19|20)?\d{2}$/;
+	var reDate = reDate4;
+	
+	function doDateVenc(Id, pStr, pFmt){
+	d = document.getElementById(Id);
+	if (d.value != ""){ 
+		if (d.value.length < 10){
+			alert("Data Inválida!\nDigite corretamente a data: dd/mm/aaaa !");
+			d.value="";
+			d.focus(); 
+			return false;
+		}else{
+		
+			eval("reDate = reDate" + pFmt);
+				if (reDate.test(pStr)) {
+				return false;
+				} else if (pStr != null && pStr != "") {
+				alert("ALERTA DE ERRO!!\n\n" + pStr + " NÃO é uma data válida.");
+				d.value="";
+				d.focus(); 
+				return false;
+			}
+		}	
+	}else{
+	return false;
+	}
+	}
+</script>
 	
 </head>
-	<body style="background-image: url('<c:url value="/resource/images/background6.png"/>'>
+	<body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
 
 	
 	<div class="page-header">
@@ -25,7 +69,10 @@
 		<form action="adicionar" method="post" class="form-inline" role="form"  >
 			<div class="container">
 				<h1>Nova Despesa</h1>
-			<div>		
+			<div>
+			   	<div>
+				    <input type="checkbox" autofocus="autofocus"  id="flagMensal" name="flagMensal" onclick="document.getElementById('flagParcelado').disabled = this.checked;" ><label>Despesa Fixa Mensal</label>			
+				</div>		
 				<div  class="form-group" style="width: 768px; height: 34px; position: absolute;">
 				<label>Categoria</label> 
 						 <select name="categoria.id" class="form-control" id="categoria" >
@@ -52,22 +99,24 @@
 				 	<label>Valor Despesa</label><br><input style="width: 178px" type="text" class="form-control" name="valorDespesa" required="required" autofocus="autofocus" />  
 				</div>
 				<div class="form-group">
-				 	 <label>Data da Despesa </label><br> <input  style="width: 178px"  type="text"  class="form-control" name="dataDespesa" required="required" autofocus="autofocus"/>
+				 	 <label>Data da Despesa </label><br> <input  style="width: 178px"  type="text"  class="form-control" name="dataDespesa" required="required" autofocus="autofocus" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>
 				</div>
 				<div class="form-group">
-					<label>Data de Vencimento </label><br> <input type="date" dateFormat: "dd/mm/yyyy" style="width: 178px" type="text"  class="form-control" name="dataVencimento"/>
+					<label>Data de Vencimento </label><br> <input style="width: 178px" type="text"  class="form-control" name="dataVencimento" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>
 				</div>
-				<div class="form-group">
-					<input type="checkbox"  name="flagParcelado" onclick="document.getElementById('parcelas').disabled = !this.checked;"><label>Compra Parcelada</label>
-					<br>
-					<input style="width: 60px" type="number" class="form-control" id ="parcelas" name="numParcelas" min="1" max="99" disabled="disabled">
-				</div>
+				
+			
+				<div class="form-group" style="height: 61px">
+						<input type="checkbox" id="flagParcelado"  name="flagParcelado" onclick="document.getElementById('parcelas').disabled = !this.checked; document.getElementById('flagMensal').disabled = this.checked;"><label>Compra Parcelada</label>
+						<br>
+						<input style="width: 60px" type="number" class="form-control" id ="parcelas" name="numParcelas" min="1" max="99" disabled="disabled">
+					</div>	
 			    <br>
 				<div class="form-group">
 				 	<label>Valor Pago</label> <br> <input style="width: 178px" type="text" class="form-control" name="valorPago">		
 				</div>
 				<div class="form-group">
-					<label>Data do Pagamento</label> <br>  <input  style="width: 178px" type="text"  class="form-control" name="dataPagamento"/>	
+					<label>Data do Pagamento</label> <br>  <input  style="width: 178px" type="text"  class="form-control" name="dataPagamento" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>	
 				</div>
 
 				

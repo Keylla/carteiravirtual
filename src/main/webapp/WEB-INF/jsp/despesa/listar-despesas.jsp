@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-<title>jWallet - Despesas</title>
+<title>CarteiraVirtual - Despesas</title>
 
 <style>
 body {margin-top: 60px;} 
@@ -33,7 +33,7 @@ body {margin-top: 60px;}
 	        	
 	        	<table>
         		<th>
-		        	Mes
+		        	Mês
 		        	<select id="comboMes" class="form-control" >
 			        	<option value="1"> Janeiro </option>
 			        	<option value="2"> Fevereiro </option>
@@ -60,17 +60,20 @@ body {margin-top: 60px;}
 		             	
 	        	</table>
 	        	
-					<table id="tabelaDespesas" class="table">
+					<table id="tabelaDespesas" class="table" >
 					
 					<thead>
 					
 					<tr>
-						<th> <p> Vencimento </p> </th>
-						<th> <p> Credor </p> </th>
-						<th> <p> Valor Despesa</p> </th>
-						<th> <p> </p> </th>	
-						<th> <p> </p> </th>
-						<th> <p> </p> </th>							
+					    <th> <p align=center> Data Despesa</p></th>
+						<th> <p align=center> Vencimento </p> </th>
+						<th> <p align=center> Credor </p> </th>
+						<th> <p align=center> Categoria </p> </th>
+						<th> <p align=center> Valor Despesa</p> </th>
+						<th> <p align=center> Parcelas</p> </th>	
+						<th> <p align=center> Valor Pago</p> </th>
+						<th> <p align=center> Pagamento</p> </th>
+						<th> <p align=center> Fixa</p> </th>							
 						
 					</tr>
 					
@@ -96,32 +99,30 @@ body {margin-top: 60px;}
 						<c:if test="${despesa.estadoDespesa != 'PAGO'}">
 						<c:set var="totalDespesa" value="${despesa.valorDespesa + totalDespesa}" />
 						</c:if>						
-						
-							<td> <fmt:formatDate value="${despesa.dataVencimento.time}" pattern="dd/MM/yyyy"/>  </td>
-							<td> ${despesa.credor.nomeFantasia} </td>					
+						    
+						    <td align=center> <fmt:formatDate value="${despesa.dataDespesa.time}" pattern="dd/MM/yyyy"/>  </td>
+							<td align=center> <fmt:formatDate value="${despesa.dataVencimento.time}" pattern="dd/MM/yyyy"/>  </td>
+							<td align=center> ${despesa.credor.nomeFantasia} </td>					
+							<td align=center> ${despesa.categoria.descricao} </td>
+							<td align=center> <fmt:formatNumber type="currency" value= "${despesa.valorDespesa}" />  </td>
+							<td align=center> ${despesa.numParcelas}</td>
+							<td align=center> <fmt:formatNumber type="currency" value= "${despesa.valorPago}" />  </td>
+							<td align=center> <fmt:formatDate value="${despesa.dataPagamento.time}" pattern="dd/MM/yyyy"/>  </td>
+							<c:if test="${despesa.flagMensal == 'off'}">
+								<td align=center>Não</td>
+								</c:if>
 							
-							<td> <fmt:formatNumber type="currency" value= "${despesa.valorDespesa}" />  </td>
-
-							
+							<c:if test="${despesa.flagMensal == 'on'}">
+							   <td align=center>Sim</td>
+							</c:if>
 							<c:choose>
 							  <c:when test="${despesa.estadoDespesa != 'PAGO'}">  
 							  	<td> <a href="form-altera?id=${despesa.id}"> Editar  </a> </td>
 								<td> <a href="remover?id=${despesa.id}"> Excluir </a> </td>  
 							  	<td> <a href="efetuar-pagamento?id=${despesa.id}"> Efetuar Pagamento </a> </td>
 							  </c:when>
-							 
-							 <c:when test="${despesa.estadoDespesa == 'PAGO'}">  
-							  	<td>  </td>
-							  	<td> <a href="remover?id=${despesa.id}"> Excluir </a> </td>  
-							  	<td> Pago </td>
-							 </c:when>
-							 
+ 
 							</c:choose>		
-														
-							
-							
-							
-				
 						</tr>
 					</c:forEach>
 					
@@ -129,10 +130,12 @@ body {margin-top: 60px;}
 					
 					<tfoot>
 						<tr>
-						<td> Valor Total </td>
+						
+						<td align=center><label> Valor Total </label> </td>
 						<td> </td>
 						<td> </td>
-						<td> <fmt:formatNumber type="currency" value= "${totalDespesa}" />  </td>
+						<td> </td>
+						<td align=center><label><fmt:formatNumber type="currency" value= "${totalDespesa}" /></label></td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -158,22 +161,21 @@ body {margin-top: 60px;}
 	$(document).ready(function() {
 		
 		var today = new Date();
-		var mm = today.getMonth() +1;
-		
-		document.getElementById("comboMes").value = mm;
+		var mm = document.getElementById("comboMes").value;
+		document.getElementById("comboMes").value = today.getMonth();
+		document.getElementById("comboAno").value = today.getYear();
 		
 		
 	 	$('#comboMes').change(function() {
 	 		$.ajax({
                 type: "GET",
                 url: "listar-periodo",
-                data: {mes: this.value },
+                data: {mes: this.value, ano : $('#comboAno').val()},
                 success : function(data){
                    	$("#tabelaDespesas").html(data);
                 }
             });
 		});
-	 	
 
 	});
 </script>

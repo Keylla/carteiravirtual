@@ -9,7 +9,7 @@ public class Despesa {
 	
 	public enum EstadoDespesa {
 		
-		EM_ABERTO,EM_ATRASO,PAGO
+		EM_ABERTO,EM_ATRASO,PAGO,PAGO_PARCIAL
 		
 	}
 
@@ -21,6 +21,7 @@ public class Despesa {
 	private Double valorDespesa;
 	private Double valorPago;
 	private String flagParcelado;
+	private String flagMensal;
 	private int numParcelas;
 	private Usuario usuario;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")	
@@ -32,6 +33,14 @@ public class Despesa {
 	
 	
 	
+
+	public String getFlagMensal() {
+		return flagMensal;
+	}
+
+	public void setFlagMensal(String flagMensal) {
+		this.flagMensal = flagMensal;
+	}
 
 	public Categoria getCategoria() {
 		return categoria;

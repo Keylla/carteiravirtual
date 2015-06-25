@@ -45,7 +45,7 @@ public class DespesaService {
 		return despesas;
 	}
 	
-	public List<Despesa> selecionarPorPeriodo(int mes){
+	public List<Despesa> selecionarPorPeriodo(int mes, int ano){
 		
 		Calendar dataAtual = Calendar.getInstance(); 
 		dataAtual.set(Calendar.MINUTE, 0);  
@@ -53,7 +53,7 @@ public class DespesaService {
 		dataAtual.set(Calendar.SECOND, 0);  
 		dataAtual.set(Calendar.MILLISECOND, 0); 
 		
-		List<Despesa> despesas = dao.selectByPeriodo(mes);
+		List<Despesa> despesas = dao.selectByPeriodo(mes, ano);
 		
 		for (Despesa despesa : despesas) {
 			if (despesa.getEstadoDespesa().toString().equals("EM_ABERTO")){
