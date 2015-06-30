@@ -1,5 +1,6 @@
 package br.com.ifce.jwallet.validator;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -22,7 +23,7 @@ public class UsuarioValidator implements Validator{
 		if (usuarioBanco == null){
 			errors.rejectValue("userName", "usuario.invalido");
 		}else if(!usuarioBanco.getSenha().equals(usuario.getSenha())){
-			errors.rejectValue("senha", "senha.invalida");
+			errors.rejectValue("senha", "senha.invalido");
 		}
 		
 	}

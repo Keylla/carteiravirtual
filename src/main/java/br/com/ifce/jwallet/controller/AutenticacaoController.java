@@ -55,7 +55,7 @@ public class AutenticacaoController  {
 			List<ObjectError> erros = result.getAllErrors();
 			System.out.println(erros.get(0).getCode().toString());
 			System.out.println(erros.get(0).getDefaultMessage());
-					
+	
 			return "/acesso/logon";
 		}else{
 			incluirUsuarioSessao(usuarioValidator.getusuarioBanco());

@@ -32,9 +32,10 @@ body {margin-top: 60px;}
 	        
 	        	
 	        	<table>
+	        	
         		<th>
 		        	Mês
-		        	<select id="comboMes" class="form-control" >
+		        	<select id="comboMes" class="form-control" onload="load">
 			        	<option value="1"> Janeiro </option>
 			        	<option value="2"> Fevereiro </option>
 			        	<option value="3"> Março </option>
@@ -158,19 +159,37 @@ body {margin-top: 60px;}
 	    
 <script type="text/javascript">    
 
-	$(document).ready(function() {
+	$(document).ready(function () {
 		
 		var today = new Date();
-		var mm = document.getElementById("comboMes").value;
-		document.getElementById("comboMes").value = today.getMonth();
-		document.getElementById("comboAno").value = today.getYear();
-		
-		
+		document.getElementById("comboMes").value = today.getMonth()+1;
+		document.getElementById("comboAno").value = today.getFullYear();
+
+		$.ajax({
+            type: "GET",
+            url: "listar-periodo",
+            data: {mes: $('#comboMes').val(), ano : $('#comboAno').val()},
+            success : function(data){
+               	$("#tabelaDespesas").html(data);
+            }
+        });
+
 	 	$('#comboMes').change(function() {
 	 		$.ajax({
                 type: "GET",
                 url: "listar-periodo",
                 data: {mes: this.value, ano : $('#comboAno').val()},
+                success : function(data){
+                   	$("#tabelaDespesas").html(data);
+                }
+            });
+		});
+
+	 	$('#comboAno').change(function() {
+	 		$.ajax({
+                type: "GET",
+                url: "listar-periodo",
+                data: {mes: $('#comboMes').val(), ano : this.value},
                 success : function(data){
                    	$("#tabelaDespesas").html(data);
                 }

@@ -9,7 +9,50 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="<c:url value="/resource/js/charts.js"/>"></script>
+<script language="JavaScript">
+/* Formatação para qualquer mascara */
 
+	function formatar(src, mask) 
+	{
+		var i = src.value.length;
+		var saida = mask.substring(0,1);
+		var texto = mask.substring(i)
+			if (texto.substring(0,1) != saida) 
+			{
+				src.value += texto.substring(0,1);
+			}
+	}
+	
+	/* Valida Data */
+	
+	var reDate4 = /^((0?[1-9]|[12]\d)\/(0?[1-9]|1[0-2])|30\/(0?[13-9]|1[0-2])|31\/(0?[13578]|1[02]))\/(19|20)?\d{2}$/;
+	var reDate = reDate4;
+	
+	function doDateVenc(Id, pStr, pFmt){
+	d = document.getElementById(Id);
+	if (d.value != ""){ 
+		if (d.value.length < 10){
+			alert("Data Inválida!\nDigite corretamente a data: dd/mm/aaaa !");
+			d.value="";
+			d.focus(); 
+			return false;
+		}else{
+		
+			eval("reDate = reDate" + pFmt);
+				if (reDate.test(pStr)) {
+				return false;
+				} else if (pStr != null && pStr != "") {
+				alert("ALERTA DE ERRO!!\n\n" + pStr + " NÃO é uma data válida.");
+				d.value="";
+				d.focus(); 
+				return false;
+			}
+		}	
+	}else{
+	return false;
+	}
+	}
+</script>
 </head>
 
 <body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">  
@@ -24,12 +67,12 @@
 		<p>
 		
 		<div class="form-group col-md-4">
-		<input id="periodoInicial" type="text" class="form-control" placeholder="Periodo Inicial" value="01/04/2015">
+		<input id="periodoInicial" type="text" class="form-control" placeholder="Periodo Inicial" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);">
 		</div>
 		
 		<p>
 		<div class="form-group col-md-4">
-		<input id="periodoFinal" type="text" class="form-control" placeholder="Periodo Final" value="30/04/2015">
+		<input id="periodoFinal" type="text" class="form-control" placeholder="Periodo Final" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);">
 		</div>
 		
 		<p>

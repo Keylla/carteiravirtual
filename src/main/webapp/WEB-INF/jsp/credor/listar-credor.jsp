@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-<title>jWallet - Credores</title>
+<title>Carteira Virtual - Credores</title>
 
 <!--     Bootstrap core CSS -->
     <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
