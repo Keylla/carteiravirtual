@@ -1,12 +1,8 @@
 package br.com.ifce.jwallet.validator;
-
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
 import br.com.ifce.jwallet.model.Usuario;
 import br.com.ifce.jwallet.service.UsuarioService;
-
 public class UsuarioValidator implements Validator{
 	Usuario usuarioBanco;
 	@Override
