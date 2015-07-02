@@ -67,12 +67,12 @@
 		<p>
 		
 		<div class="form-group col-md-4">
-		<input id="periodoInicial" type="text" class="form-control" placeholder="Periodo Inicial" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);">
+		<input id="periodoInicial" value= "01/06/2015" type="text" class="form-control" placeholder="Periodo Inicial" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);">
 		</div>
 		
 		<p>
 		<div class="form-group col-md-4">
-		<input id="periodoFinal" type="text" class="form-control" placeholder="Periodo Final" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);">
+		<input id="periodoFinal" value= "30/06/2015" type="text" class="form-control" placeholder="Periodo Final" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);">
 		</div>
 		
 		<p>
@@ -92,7 +92,7 @@
 		</div>		
 	</div>
 
-<script> -->
+<script language="JavaScript" > 
  $(document).ready(function(){
      $("#bntGerarGelatorio").click(desenhaGrafico);
  });

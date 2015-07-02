@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +64,8 @@ public class GraficoDespesaService {
 		dt.addColumn("number","Valor (R$)");
 		
 		for(Despesa despesa : despesasPorPeriodo){
-			String competencia  = despesa.getDataVencimento().toString();
+			
+			String competencia  = Integer.toString(despesa.getDataVencimento().get(Calendar.MONTH)+1)+"/"+Integer.toString(despesa.getDataVencimento().get(Calendar.YEAR));
 			Double valor = despesa.getValorDespesa();
 			
 			dt.insert(competencia, valor);

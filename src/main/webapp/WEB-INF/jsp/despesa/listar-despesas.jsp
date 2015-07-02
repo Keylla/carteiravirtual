@@ -86,7 +86,7 @@ body {margin-top: 60px;}
 					<c:forEach var="despesa" items="${despesas}">
 
 						<c:if test="${despesa.estadoDespesa == 'EM_ABERTO'}">
-						<tr class="default">
+						<tr class="active">
 						</c:if>
 						
 						<c:if test="${despesa.estadoDespesa == 'EM_ATRASO'}">

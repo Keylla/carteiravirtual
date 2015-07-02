@@ -8,9 +8,12 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import br.com.ifce.jwallet.controller.AutenticacaoController;
 import br.com.ifce.jwallet.exception.DaoException;
+import br.com.ifce.jwallet.model.Categoria;
 import br.com.ifce.jwallet.model.Despesa;
 import br.com.ifce.jwallet.model.Despesa.EstadoDespesa;
 import br.com.ifce.jwallet.model.Usuario;
@@ -314,8 +317,6 @@ public class DespesaDao {
 	
 public List<Despesa> selectByPeriodo(int mes, int ano){
 	    int mesIndex = mes-1;
-		Calendar dataAtual = Calendar.getInstance();
-		
 		Calendar periodoInicial = Calendar.getInstance();
 		periodoInicial.set(Calendar.YEAR,ano);
 		periodoInicial.set(Calendar.MONTH,mesIndex);
@@ -398,13 +399,12 @@ public List<Despesa> selectByPeriodo(int mes, int ano){
 public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFinal){
 	
 	List<Despesa> despesas = new ArrayList<Despesa>();
-	System.out.println("esse");
+
 	String sql = "select c.id_categoria, c.descricao, sum(d.vlr_despesa) total from tb_despesas d "
-			+ "join tb_sub_categoria sc on (d.id_sub_categoria = sc.id_sub_categoria) "
-			+ "join tb_categoria c on (c.id_categoria = sc.id_categoria) "
+			+ "join tb_categoria c on (c.id_categoria = d.id_categoria) "
 			+ "where d.dt_vencimento between ? and ? "
 			+ " and d.estado_despesa = 'EM_ABERTO'"
-			+ " and id_usuario = ?"
+			+ " and d.id_usuario = ?"
 			+ "group by c.id_categoria";
 	
 	try {
@@ -413,46 +413,19 @@ public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFi
 		pstm.setDate(1, new java.sql.Date(periodoInicial.getTimeInMillis()));
 		pstm.setDate(2, new java.sql.Date(periodoFinal.getTimeInMillis()));
 		pstm.setLong(3, userName.getId());
-		ResultSet rs = pstm.executeQuery();
+ResultSet rs = pstm.executeQuery();
 		
 		while(rs.next()){
 			
 			Despesa desp = new Despesa();
-			CredorDao credorDao = new CredorDao();
-			CategoriaDao categoriaDao = new CategoriaDao();
-			UsuarioDao usuarioDao = new UsuarioDao();
-			Calendar dataDespesa = Calendar.getInstance();
-			Calendar dataVencimento = Calendar.getInstance();
-			Calendar dataPagamento = Calendar.getInstance();
+
+			Categoria categoria = new Categoria();
+			categoria.setId(rs.getLong("id_categoria"));
+			categoria.setDescricao(rs.getString("descricao"));
+			desp.setCategoria(categoria);
+			desp.setValorDespesa(rs.getDouble("total"));
 			
-			
-			desp.setId(rs.getLong("id_despesa"));
-			desp.setCategoria(categoriaDao.selectById(rs.getLong("id_categoria")));
-			if(rs.getLong("id_credor")>0){
-				desp.setCredor(credorDao.selectById(rs.getLong("id_credor")));				
-			}
-			desp.setDetalhe(rs.getString("detalhe_despesa"));
-			desp.setValorDespesa(rs.getDouble("vlr_despesa"));
-			dataDespesa.setTime(rs.getDate("dt_despesa"));
-			desp.setDataDespesa(dataDespesa);
-			dataVencimento.setTime(rs.getDate("dt_vencimento"));
-			desp.setDataVencimento(dataVencimento);
-			desp.setEstadoDespesa(EstadoDespesa.valueOf(rs.getString("estado_despesa")));
-			if (rs.getDate("dt_pagamento") != null){
-			    dataPagamento.setTime(rs.getDate("dt_pagamento"));
-				desp.setDataPagamento(dataPagamento);
-			}
-			if(rs.getDouble("vlr_pago") >0){
-				desp.setValorPago(rs.getDouble("vlr_pago"));
-			}
-			desp.setFlagParcelado(rs.getString("flag_parcelado"));
-			desp.setFlagMensal(rs.getString("flag_mensal"));
-			if(rs.getInt("num_parcelas")>0){
-				desp.setNumParcelas(rs.getInt("num_parcelas"));
-			}
-			desp.setUsuario(usuarioDao.selectById(rs.getLong("id_usuario")));
 			despesas.add(desp);
-	
 		}
 		
 	} catch (SQLException e) {
@@ -471,20 +444,19 @@ public List<Despesa> selectCompetenciaValorByPeriodo(Calendar periodoInicial, Ca
 	
 	List<Despesa> despesas = new ArrayList<Despesa>();
 	
-	String sql = "select to_char(dt_vencimento,'MM/yyyy') comp, sum(d.vlr_despesa) valor from tb_despesas d "
-			+ "where (d.dt_vencimento between ? and ?) or "
-			+ "   ( (d.dt_vencimento < ?) and (d.estado_despesa = 'EM_ABERTO')) "
-			+" and id_usuario = ?"
-			+ "group by comp "
-			+ "order by comp";
+	String sql = "select to_char(dt_vencimento,'MM/yyyy') comp,to_date('01/'||to_char(dt_vencimento,'MM/yyyy'),'dd/MM/yyyy') dt_vencimento, sum(d.vlr_despesa) valor from tb_despesas d "
+			+ "where d.dt_vencimento between ? and ? "
+			+ " and d.estado_despesa = 'EM_ABERTO'"
+			+ " and id_usuario = ?"
+			+ " group by comp"
+			+ " order by comp";
 	
 	try {
 		
 		pstm = con.prepareStatement(sql);
 		pstm.setDate(1, new java.sql.Date(periodoInicial.getTimeInMillis()));
 		pstm.setDate(2, new java.sql.Date(periodoFinal.getTimeInMillis()));
-		pstm.setDate(3, new java.sql.Date(periodoFinal.getTimeInMillis()));
-		pstm.setLong(4, userName.getId());
+		pstm.setLong(3, userName.getId());
 		ResultSet rs = pstm.executeQuery();
 		
 		while(rs.next()){
