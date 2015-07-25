@@ -10,12 +10,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 <title>Despesa</title>
-<link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+ 
+  <link href="<c:url value="../resource/css/bootstrap.min.css"/>" rel="stylesheet">
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+   <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>  
+  <script type="text/javascript">
+  var $JQuery = jQuery.noConflict()
+	$JQuery(function() {
+		$JQuery( "#calendario" ).datepicker();
+	});
+</script> 
 
+
+ 
 <script language="JavaScript">
 /* Formatação para qualquer mascara */
 
@@ -37,7 +45,7 @@
 	
 	function doDateVenc(Id, pStr, pFmt){
 	d = document.getElementById(Id);
-	if (d.value != ""){ 
+	if (d.value !=""){ 
 		if (d.value.length < 10){
 			alert("Data Inválida!\nDigite corretamente a data: dd/mm/aaaa !");
 			d.value="";
@@ -59,8 +67,9 @@
 	return false;
 	}
 	}
-</script>
 	
+</script>
+
 </head>
 	<body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
 
@@ -103,12 +112,11 @@
 				 	<label>Valor Despesa</label><br><input style="width: 178px" type="text" class="form-control" name="valorDespesa" required="required" autofocus="autofocus" />  
 				</div>
 				<div class="form-group">
-				 	 <label>Data da Despesa </label><br> <input  style="width: 178px"  type="text"  class="form-control" name="dataDespesa" required="required" autofocus="autofocus" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>
+				 	 <label>Data da Despesa </label><br> <input id="calendario" style="width: 178px"  type="text"  class="form-control" name="dataDespesa" required="required" autofocus="autofocus" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>
 				</div>
 				<div class="form-group">
-					<label>Data de Vencimento </label><br> <input style="width: 178px" type="text"  class="form-control" name="dataVencimento" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>
+					<label>Data de Vencimento </label><br> <input id="calendario" style="width: 178px" type="text"  class="form-control" name="dataVencimento" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>
 				</div>
-				
 			
 				<div class="form-group" style="height: 61px">
 						<input type="checkbox" id="flagParcelado"  name="flagParcelado" onclick="document.getElementById('parcelas').disabled = !this.checked; document.getElementById('flagMensal').disabled = this.checked;"><label>Compra Parcelada</label>
@@ -120,7 +128,7 @@
 				 	<label>Valor Pago</label> <br> <input style="width: 178px" type="text" class="form-control" name="valorPago">		
 				</div>
 				<div class="form-group">
-					<label>Data do Pagamento</label> <br>  <input  style="width: 178px" type="text"  class="form-control" name="dataPagamento" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>	
+					<label>Data do Pagamento</label> <br>  <input id="calendario" style="width: 178px" type="text"  class="form-control" name="dataPagamento" maxlength="10" OnKeyPress="formatar(this, '##/##/####')" onBlur="return doDateVenc(this.id,this.value, 4);"/>	
 				</div>
 
 				
@@ -131,10 +139,9 @@
 		</div>			
 												
 	</div>
+	
 </form>
-		
 
-	
-	
-	</body>
+
+</body>
 </html>

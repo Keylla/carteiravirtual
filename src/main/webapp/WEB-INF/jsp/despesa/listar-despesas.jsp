@@ -117,10 +117,11 @@ body {margin-top: 60px;}
 							   <td align=center>Sim</td>
 							</c:if>
 							<c:choose>
+							
 							  <c:when test="${despesa.estadoDespesa != 'PAGO'}">  
 							  	<td> <a href="form-altera?id=${despesa.id}"> Editar  </a> </td>
 								<td> <a href="remover?id=${despesa.id}"> Excluir </a> </td>  
-							  	<td> <a href="efetuar-pagamento?id=${despesa.id}"> Efetuar Pagamento </a> </td>
+							  	<td> <a href="efetuar-pagamento?id=${despesa.id}" > Efetuar Pagamento </a> </td>
 							  </c:when>
  
 							</c:choose>		

@@ -58,6 +58,7 @@
 	
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="<c:url value="/resource/js/bootstrap.min.js"/>"></script>
+   
     <!--<script src="/js/bootstrap.min.js"></script>-->
     
 </body>

@@ -139,26 +139,27 @@ public class DespesaDao {
 	
 	public void update(Despesa despesa){
 		
-		String sql = "UPDATE TB_DESPESAS " 
-				+"ID_CATEGORIA = ?, "
-				+ "ID_CREDOR  = ?,  "
-				+ "DETALHE_DESPESA = ?, "
-				+ "VLR_DESPESA = ?, "
-				+ "DT_DESPESA = ?, "
-				+ "DT_VENCIMENTO = ?, "
-				+ "ESTADO_DESPESA = ?, "
-				+ "DT_PAGAMENTO = ?, "
-				+ "VLR_PAGO = ?, "
-				+ "FLAG_PARCELADO = ?, "
-				+ "FLAG_MENSAL = ?, "
+		
+		String sql = "UPDATE TB_DESPESAS  SET " 
+				+"ID_CATEGORIA = ? , "
+				+ "ID_CREDOR  = ? ,  "
+				+ "DETALHE_DESPESA = ? , "
+				+ "VLR_DESPESA = ? , "
+				+ "DT_DESPESA = ? , "
+				+ "DT_VENCIMENTO = ? , "
+				+ "ESTADO_DESPESA = ? , "
+				+ "DT_PAGAMENTO = ? , "
+				+ "VLR_PAGO = ? , "
+				+ "FLAG_PARCELADO = ? , "
+				+ "FLAG_MENSAL = ? , "
 				+ "NUM_PARCELAS = ? "
-				+ "WHERE ID_DESPESA = ?";
+				+ "WHERE ID_DESPESA = ? ";
 		
 		try {
 
 			pstm = con.prepareStatement(sql);
 			pstm.setLong(1, despesa.getCategoria().getId());
-			if(despesa.getCredor().getId() != null){
+			if(despesa.getCredor()!= null){
 				pstm.setLong(2, despesa.getCredor().getId());
 			}
 			else{
@@ -178,17 +179,10 @@ public class DespesaDao {
 			else{
 				pstm.setDate(6, new java.sql.Date(despesa.getDataDespesa().getTimeInMillis()));
 			}
-			if(despesa.getValorPago() == null || despesa.getValorPago()==0){
-				   pstm.setString(7, EstadoDespesa.EM_ABERTO.toString());
+			if(despesa.getEstadoDespesa() !=null){
+				   pstm.setString(7, despesa.getEstadoDespesa().toString());
 				}
-				else{
-					if(despesa.getValorPago() ==  despesa.getValorDespesa()){
-						pstm.setString(7, EstadoDespesa.PAGO.toString());
-					}
-					else{
-						pstm.setString(7, EstadoDespesa.PAGO_PARCIAL.toString());
-					}
-				}
+				
 			if(despesa.getDataPagamento() != null){
 				pstm.setDate(8, new java.sql.Date(despesa.getDataPagamento().getTimeInMillis()));
 			}
@@ -222,6 +216,7 @@ public class DespesaDao {
 
 			pstm.setLong(13, despesa.getId());
 			pstm.execute();
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
