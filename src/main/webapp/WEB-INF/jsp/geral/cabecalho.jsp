@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="<c:url value="/resource/css/bootstrap.min.css"/>" rel="stylesheet">
+
 <!--<link href="/resource/css/bootstrap.min.css" rel="stylesheet">-->
 <title>Carteira Virtual</title>
 </head>
