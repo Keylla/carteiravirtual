@@ -74,9 +74,8 @@
 </head>
 	<body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
 
-	
-	<div class="page-header">
-	<c:import url="../geral/cabecalho.jsp"></c:import>
+	<div class="smallDiv">
+	  <c:import url="../geral/cabecalho.jsp"></c:import>
 	</div>
 	
 	

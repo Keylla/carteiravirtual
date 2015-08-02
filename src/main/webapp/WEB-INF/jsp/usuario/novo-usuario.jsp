@@ -10,7 +10,7 @@
 	</head>
 <body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">  
 
-		<div class="page-header">
+		<div class="smallDiv">
 		<c:import url="../geral/cabecalhoCadUsuario.jsp"></c:import>
 		</div>
 			<div class="container">

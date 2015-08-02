@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon"  href="/resource/images/icon_pagamento.ico" type="image/x-icon"/>
 
-    <title>jwallet-web</title>
+    <title>Carteira Virtual-web</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/resource/css/bootstrap.min.css"/>" rel="stylesheet">

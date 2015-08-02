@@ -21,7 +21,7 @@ body {margin-top: 60px;}
 
 <body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">  
 
-<div class="page-header">
+<div class="smallDiv">
 <c:import url="../geral/cabecalho.jsp"></c:import>
 </div>
 
