@@ -97,9 +97,9 @@ public class DespesaController {
 	}
 	
 	@RequestMapping("efetuar-pagamento")
-	public String efetuarPagamento(Long id){
+	public String efetuarPagamento(Long id, Double valorPagamento){
 		DespesaService ds = new DespesaService();
-		ds.efetuarPagamento(id);
+		ds.efetuarPagamento(id, valorPagamento);
 		
 		return "redirect:listar-todas";
 	}

@@ -71,10 +71,12 @@ public class DespesaService {
 		return dao.selectById(id);
 	}
 	
-	public void efetuarPagamento(Long id){
-		
+	public void efetuarPagamento(Long id, Double valorPago){
+		System.out.println(id+"-"+ valorPago);
 		Despesa desp = dao.selectById(id);
 		desp.setEstadoDespesa(EstadoDespesa.PAGO);
+		desp.setValorPago(valorPago);
+		
 		
 		DespesaDao dao2 = new DespesaDao();
 		dao2.update(desp);

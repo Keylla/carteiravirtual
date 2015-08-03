@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
+<link rel="icon"  href="<c:url value="/resource/images/icon_pagamento.ico"/>" type="image/x-icon"/>
+
 <title>Cadastro de Credor</title>
 </head>
 <body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">  

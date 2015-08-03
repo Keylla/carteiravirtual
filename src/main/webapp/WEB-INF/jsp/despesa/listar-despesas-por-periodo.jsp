@@ -1,5 +1,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<head>
+	<style>
+	#pagamento{
+	    display:none;
+	    position:absolute;
+	    top:50%;
+	    left:50%;
+	    margin-left:-150px;
+	    margin-top:-100px;
+	    padding:10px;
+	    width:300px;
+	    height:200px;
+	    border:1px solid #d0d0d0;
+	    background: #F8F8F8 
+	}
+	</style>
+
+</head>
  <body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">       	
 			<table id="tabelaDespesas" class="table" >
 					
@@ -61,7 +80,7 @@
 							  <c:when test="${despesa.estadoDespesa != 'PAGO'}">  
 							  	<td> <a href="form-altera?id=${despesa.id}"> Editar  </a> </td>
 								<td> <a href="remover?id=${despesa.id}"> Excluir </a> </td>  
-							  	<td> <a href="efetuar-pagamento?id=${despesa.id}"> Efetuar Pagamento </a> </td>
+							  	<td> <a class="efetuarPagamento"href="#" onclick="efetuaClick(${despesa.id})"> Efetuar Pagamento </a> </td>
 							  </c:when>
  
 							</c:choose>		
@@ -87,5 +106,48 @@
 					
 					
 					</table>
+	 <div id="pagamento">
+	
+	 </div>
+	 				
+	<script type="text/javascript"> 
+
+	function efetuaClick(e){
+		var divPai = $('#pagamento');
+		
+		$('#pagamento').empty();
+		document.getElementById('pagamento').style.display='block';
+		divPai.append("<input id='idDespesa' type='hidden' value='"+e+"'/> ");
+	    divPai.append("<label>Valor Pagamento</label><br><input id='valorPagamento' type = 'text' style='width: 178px' class='form-control'/>");
+	    divPai.append("<label>Data do Pagamento</label> <br> <input  style='width: 178px' type='text'  class='form-control calendario'  id='dataPagamento' maxlength='10' />");
+	    divPai.append("<br><input id='pagar' type='submit' class='btn btn-success btn-md' value='Salvar'/><input id='cancelar' type='button' class='btn btn-danger btn-md' value='Cancelar'/>");
+	}
+
+	 </script>
+	 
+	 <script type="text/javascript">
+	 $('#pagamento').on('click', '#cancelar', function(e) {
+		    $(this).closest("#pagamento").css('display','none');
+		    $('#pagamento').empty();
+		});
+	 </script>
+	 
+	 <script type="text/javascript">
+	 
+	 $('#pagamento').on('click', '#pagar', function(e) {
+		 $.ajax({
+	            type: "POST",
+	            url: "efetuar-pagamento",
+	            data: {id: $('#idDespesa').val(), valorPagamento : $('#valorPagamento').val()},
+	            success: function() {               
+	                    window.location.href = "listar-todas" 
+	            }
+	        });
+
+		 $(this).closest("#pagamento").css('display','none');
+		 
+		});
+	 </script>
+	
 </body>
 				

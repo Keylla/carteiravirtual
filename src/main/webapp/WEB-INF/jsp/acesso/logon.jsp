@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon"  href="/resource/images/icon_pagamento.ico" type="image/x-icon"/>
+    <link rel="icon"  href="<c:url value="/resource/images/icon_pagamento.ico"/>" type="image/x-icon"/>
 
+   
     <title>Carteira Virtual-web</title>
 
     <!-- Bootstrap core CSS -->

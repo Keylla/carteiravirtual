@@ -9,6 +9,8 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="<c:url value="/resource/js/charts.js"/>"></script>
+<link rel="icon"  href="<c:url value="/resource/images/icon_pagamento.ico"/>" type="image/x-icon"/>
+
 <script language="JavaScript">
 /* Formatação para qualquer mascara */
 
