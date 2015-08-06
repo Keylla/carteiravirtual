@@ -2,7 +2,6 @@ package br.com.ifce.jwallet.service;
 
 import java.util.Calendar;
 import java.util.List;
-
 import br.com.ifce.jwallet.dao.DespesaDao;
 import br.com.ifce.jwallet.model.Despesa;
 import br.com.ifce.jwallet.model.Despesa.EstadoDespesa;
@@ -71,11 +70,19 @@ public class DespesaService {
 		return dao.selectById(id);
 	}
 	
-	public void efetuarPagamento(Long id, Double valorPago){
-		System.out.println(id+"-"+ valorPago);
+	public void efetuarPagamento(Long id, Double valorPago, Calendar dataPagamento){
 		Despesa desp = dao.selectById(id);
+		if(desp.getValorDespesa()<=valorPago){
 		desp.setEstadoDespesa(EstadoDespesa.PAGO);
+		}
+		if(desp.getValorDespesa()>valorPago && valorPago>0){
+			desp.setEstadoDespesa(EstadoDespesa.PAGO_PARCIAL);
+		}
+		if(valorPago==0){
+			desp.setEstadoDespesa(EstadoDespesa.EM_ABERTO);
+		}
 		desp.setValorPago(valorPago);
+		desp.setDataPagamento(dataPagamento);
 		
 		
 		DespesaDao dao2 = new DespesaDao();

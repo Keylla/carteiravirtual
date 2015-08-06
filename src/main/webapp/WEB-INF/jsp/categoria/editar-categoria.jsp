@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="<c:url value="/css/bootstrap.min.css"/>"
-	rel="stylesheet">
+<link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
 <title>Cadastro de Categoria</title>
 </head>
-<body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">  
+<body
+	style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
 
 
 	<div class="smallDiv">

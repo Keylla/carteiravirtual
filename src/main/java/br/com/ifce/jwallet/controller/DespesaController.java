@@ -1,6 +1,7 @@
 package br.com.ifce.jwallet.controller;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,9 +98,11 @@ public class DespesaController {
 	}
 	
 	@RequestMapping("efetuar-pagamento")
-	public String efetuarPagamento(Long id, Double valorPagamento){
+	public String efetuarPagamento(Long id, Double valorPagamento, Date dataPagamento){
+		Calendar dataPag = Calendar.getInstance();
+		dataPag.setTime(dataPagamento);
 		DespesaService ds = new DespesaService();
-		ds.efetuarPagamento(id, valorPagamento);
+		ds.efetuarPagamento(id, valorPagamento, dataPag);
 		
 		return "redirect:listar-todas";
 	}
