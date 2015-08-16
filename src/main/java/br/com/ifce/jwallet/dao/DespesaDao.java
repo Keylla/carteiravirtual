@@ -326,7 +326,7 @@ public List<Despesa> selectByPeriodo(int mes, int ano){
 		
 		String sql = "SELECT * FROM TB_DESPESAS "
 				+ " WHERE  DT_VENCIMENTO BETWEEN ? AND ?  "
-				+ "	AND	ESTADO_DESPESA = 'EM_ABERTO'"
+		        + " OR (ESTADO_DESPESA = 'EM_ABERTO' AND TO_CHAR(DT_VENCIMENTO,'MMyyyy') < TO_CHAR(current_date,'MMyyyy')) "
 				+ " AND ID_USUARIO = ?"
 				+ " ORDER BY DT_VENCIMENTO";
 		

@@ -1,11 +1,16 @@
 package br.com.ifce.jwallet.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import br.com.ifce.jwallet.model.Categoria;
 import br.com.ifce.jwallet.model.Credor;
 import br.com.ifce.jwallet.model.Despesa;
@@ -98,9 +103,17 @@ public class DespesaController {
 	}
 	
 	@RequestMapping("efetuar-pagamento")
-	public String efetuarPagamento(Long id, Double valorPagamento, Date dataPagamento){
+	public String efetuarPagamento(Long id, Double valorPagamento, String dataPagamento){
 		Calendar dataPag = Calendar.getInstance();
-		dataPag.setTime(dataPagamento);
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+		Date date = new Date();
+		try {
+			date = formatter.parse(dataPagamento);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		dataPag.setTime(date);
 		DespesaService ds = new DespesaService();
 		ds.efetuarPagamento(id, valorPagamento, dataPag);
 		

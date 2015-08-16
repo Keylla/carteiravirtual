@@ -15,6 +15,7 @@
 	type="image/x-icon" />
 
 
+
 <title>CarteiraVirtual - Despesas</title>
 
 <style>
@@ -187,7 +188,7 @@ body {
 
 
 	<script type="text/javascript">    
-
+	
 	$(document).ready(function () {
 		
 		var today = new Date();

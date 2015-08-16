@@ -15,25 +15,19 @@
 
 <title>Despesa</title>
 
-<link href="<c:url value="../resource/css/bootstrap.min.css"/>"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-<script type="text/javascript" src="../resource/js/datepickerPB.js"
-	charset="UTF-8"></script>
+<link href="<c:url value="../resource/css/bootstrap.min.css"/>"rel="stylesheet">
+<link rel="stylesheet" href="../resource/css/jquery-ui.css" />
+<script src="../resource/js/jquery-1.11.3.js"></script>
+<script src="../resource/js/jquery-ui.js"></script>
+<script type="text/javascript" src="../resource/js/datepickerPB.js" charset="UTF-8"></script>
+
 <script type="text/javascript">
   var $JQuery = jQuery.noConflict()
 	$JQuery(function() {
 		$JQuery( ".calendario" ).datepicker({language: "pt-BR"});
 	});
-</script>
 
-
-
-<script language="JavaScript">
-/* Formatação para qualquer mascara */
+  /* Formatação para qualquer mascara */
 
 	function formatar(src, mask) 
 	{
@@ -77,6 +71,9 @@
 	}
 	
 </script>
+
+
+
 
 </head>
 <body

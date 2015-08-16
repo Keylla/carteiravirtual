@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <head>
+
 <style>
 #pagamento {
 	display: none;
@@ -29,7 +30,62 @@
  display: none;
 }
 </style>
+<link rel="stylesheet" href="../resource/css/jquery-ui.css" />
+<script src="../resource/js/jquery-1.11.3.js"></script>
+<script src="../resource/js/jquery-ui.js"></script>
+<script type="text/javascript" src="../resource/js/datepickerPB.js" charset="UTF-8"></script>
 
+<script type="text/javascript">
+  var $JQuery = jQuery.noConflict()
+	$JQuery(function mostraCalend() {
+		$JQuery( ".calendario" ).datepicker({language: "pt-BR"});
+	});
+
+  /* Formatação para qualquer mascara */
+
+	function formatar(src) 
+	{
+		mask = '##/##/####';
+		var i = src.value.length;
+		var saida = mask.substring(0,1);
+		var texto = mask.substring(i)
+			if (texto.substring(0,1) != saida) 
+			{
+				src.value += texto.substring(0,1);
+			}
+	}
+	
+	/* Valida Data */
+	
+	var reDate4 = /^((0?[1-9]|[12]\d)\/(0?[1-9]|1[0-2])|30\/(0?[13-9]|1[0-2])|31\/(0?[13578]|1[02]))\/(19|20)?\d{2}$/;
+	var reDate = reDate4;
+	
+	function doDateVenc(Id, pStr, pFmt){
+	d = document.getElementById(Id);
+	if (d.value !=""){ 
+		if (d.value.length < 10){
+			alert("Data Inválida!\nDigite corretamente a data: dd/mm/aaaa !");
+			d.value="";
+			d.focus(); 
+			return false;
+		}else{
+		
+			eval("reDate = reDate" + pFmt);
+				if (reDate.test(pStr)) {
+				return false;
+				} else if (pStr != null && pStr != "") {
+				alert("ALERTA DE ERRO!!\n\n" + pStr + " NÃO é uma data válida.");
+				d.value="";
+				d.focus(); 
+				return false;
+			}
+		}	
+	}else{
+	return false;
+	}
+	}
+	
+</script>
 </head>
 <body
 	style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
@@ -86,11 +142,14 @@
 				<c:if test="${despesa.estadoDespesa == 'PAGO'}">
 					<tr class="success">
 				</c:if>
+				<c:if test="${despesa.estadoDespesa == 'PAGO_PARCIAL'}">
+					<tr class="warning">
+				</c:if>
 
-				<c:if test="${despesa.estadoDespesa != 'PAGO'}">
+				
 					<c:set var="totalDespesa"
 						value="${despesa.valorDespesa + totalDespesa}" />
-				</c:if>
+				
 
 				<td align=center><fmt:formatDate
 						value="${despesa.dataDespesa.time}" pattern="dd/MM/yyyy" /></td>
@@ -145,20 +204,27 @@
 
 
 	</table>
-	<div id="transparencia"><div id="pagamento" ></div></div>
+	<div id="transparencia">
+		<div id="pagamento" >
+		
+	    <label>Valor Pagamento</label><br><input id="valorPagamento" type = "text" style="width: 178px" class="form-control"/>
+	    <label>Data do Pagamento</label> <br> <input id="dataPagamento" style="width: 178px" type="text"  class="form-control calendario"  OnKeyPress="formatar(this)" onBlur="return doDateVenc(this.id,this.value, 4);" maxlength="10" />
+	    <br><input id="pagar" type="submit" class="btn btn-success btn-md" value="Salvar"/><input id="cancelar" type="button" class="btn btn-danger btn-md" value="Cancelar"/>
+		</div>
+		</div>
 	
 
 	<script type="text/javascript"> 
 	function efetuaClick(e){
 		var divPai = $('#pagamento');
-		$('#pagamento').empty();
+		
 		document.getElementById('transparencia').style.display='block';
 		document.getElementById('pagamento').style.display='block';
 		divPai.append("<input id='idDespesa' type='hidden' value='"+e+"'/> ");
-	    divPai.append("<label>Valor Pagamento</label><br><input id='valorPagamento' type = 'text' style='width: 178px' class='form-control'/>");
-	    divPai.append("<label>Data do Pagamento</label> <br> <input  style='width: 178px' type='text'  class='form-control calendario'  id='dataPagamento' maxlength='10' />");
+	    /*divPai.append("<label>Valor Pagamento</label><br><input id='valorPagamento' type = 'text' style='width: 178px' class='form-control'/>");
+	    divPai.append("<label>Data do Pagamento</label> <br> <input id='dataPagamento' style='width: 178px' type='text'  class='form-control calendario'  OnKeyPress='formatar(this)' onBlur='return doDateVenc(this.id,this.value, 4);' maxlength='10' />");
 	    divPai.append("<br><input id='pagar' type='submit' class='btn btn-success btn-md' value='Salvar'/><input id='cancelar' type='button' class='btn btn-danger btn-md' value='Cancelar'/>");
-	}
+	*/}
 
 	 </script>
 
@@ -166,18 +232,19 @@
 	 $('#pagamento').on('click', '#cancelar', function(e) {
 		    $(this).closest("#pagamento").css('display','none');
 		    $(this).closest("#transparencia").css('display','none');
-		    $('#pagamento').empty();
+		   /* $('#pagamento').empty();*/
 		});
 	 </script>
-
-	<script type="text/javascript">
 	 
+    
+	<script type="text/javascript">
+
 	 $('#pagamento').on('click', '#pagar', function(e) {
 		 $.ajax({
 	            type: "POST",
 	            url: "efetuar-pagamento",
 	            data: {id: $('#idDespesa').val(), valorPagamento : $('#valorPagamento').val(), dataPagamento: $('#dataPagamento').val()},
-	            success: function() {               
+		        success: function() {               
 	                    window.location.href = "listar-todas" 
 	            }
 	        });

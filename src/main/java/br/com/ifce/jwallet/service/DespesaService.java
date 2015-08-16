@@ -71,6 +71,7 @@ public class DespesaService {
 	}
 	
 	public void efetuarPagamento(Long id, Double valorPago, Calendar dataPagamento){
+		
 		Despesa desp = dao.selectById(id);
 		if(desp.getValorDespesa()<=valorPago){
 		desp.setEstadoDespesa(EstadoDespesa.PAGO);
