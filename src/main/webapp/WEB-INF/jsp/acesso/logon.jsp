@@ -9,8 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon"
-	href="<c:url value="/resource/images/icon_pagamento.ico"/>"
-	type="image/x-icon" />
+	href="<c:url value="/resource/images/icon_pagamento.ico"/>"type="image/x-icon" />
 
 
 <title>Carteira Virtual-web</title>
