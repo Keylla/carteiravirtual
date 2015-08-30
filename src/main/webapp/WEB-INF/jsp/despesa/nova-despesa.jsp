@@ -9,9 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon"
-	href="<c:url value="/resource/images/icon_pagamento.ico"/>"
-	type="image/x-icon" />
+<link rel="icon"href="<c:url value="/resource/images/icon_pagamento.ico"/>"type="image/x-icon" />
 
 <title>Despesa</title>
 
@@ -20,57 +18,7 @@
 <script src="../resource/js/jquery-1.11.3.js"></script>
 <script src="../resource/js/jquery-ui.js"></script>
 <script type="text/javascript" src="../resource/js/datepickerPB.js" charset="UTF-8"></script>
-
-<script type="text/javascript">
-  var $JQuery = jQuery.noConflict()
-	$JQuery(function() {
-		$JQuery( ".calendario" ).datepicker({language: "pt-BR"});
-	});
-
-  /* Formatação para qualquer mascara */
-
-	function formatar(src, mask) 
-	{
-		var i = src.value.length;
-		var saida = mask.substring(0,1);
-		var texto = mask.substring(i)
-			if (texto.substring(0,1) != saida) 
-			{
-				src.value += texto.substring(0,1);
-			}
-	}
-	
-	/* Valida Data */
-	
-	var reDate4 = /^((0?[1-9]|[12]\d)\/(0?[1-9]|1[0-2])|30\/(0?[13-9]|1[0-2])|31\/(0?[13578]|1[02]))\/(19|20)?\d{2}$/;
-	var reDate = reDate4;
-	
-	function doDateVenc(Id, pStr, pFmt){
-	d = document.getElementById(Id);
-	if (d.value !=""){ 
-		if (d.value.length < 10){
-			alert("Data Inválida!\nDigite corretamente a data: dd/mm/aaaa !");
-			d.value="";
-			d.focus(); 
-			return false;
-		}else{
-		
-			eval("reDate = reDate" + pFmt);
-				if (reDate.test(pStr)) {
-				return false;
-				} else if (pStr != null && pStr != "") {
-				alert("ALERTA DE ERRO!!\n\n" + pStr + " NÃO é uma data válida.");
-				d.value="";
-				d.focus(); 
-				return false;
-			}
-		}	
-	}else{
-	return false;
-	}
-	}
-	
-</script>
+<script type="text/javascript" src="../resource/js/formataData.js" charset="UTF-8"></script>
 
 
 

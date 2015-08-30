@@ -11,40 +11,44 @@
 	href="<c:url value="/resource/images/icon_pagamento.ico"/>"
 	type="image/x-icon" />
 
-<title>Cadastro de Usuário</title>
+<title>Perfil</title>
 </head>
 <body
 	style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
 
 	<div class="smallDiv">
-		<c:import url="../geral/cabecalhoCadUsuario.jsp"></c:import>
+		<c:import url="../geral/cabecalho.jsp"></c:import>
 	</div>
-	<br><br>
-	<div class="container">
-		<h1>Novo Usuario</h1>
 
-		<form action="adicionar" method="post">
+	<div class="container">
+		<h1>Perfil</h1>
+
+		<form action="editar" method="post">
 			<table>
+			   <tr>
+					<td><input required="required" autofocus="autofocus"
+						type='hidden' class="form-control" name="id" value="${usuario.id}"></td>
+				</tr>
 				<tr>
 					<td>Nome</td>
 					<td><input required="required" autofocus="autofocus"
-						type="text" class="form-control" name="NomeDoUsuario"></td>
+						type="text" class="form-control" name="NomeDoUsuario" value="${usuario.nomeDoUsuario}"></td>
 				</tr>
 				<tr>
 					<td>e-mail</td>
 					<td><input required="required" autofocus="autofocus"
-						type="email" class="form-control" name="eMail"></td>
+						type="email" class="form-control" name="eMail" value="${usuario.eMail}"></td>
 				</tr>
 				<tr>
 					<td>Login</td>
 					<td><input required="required" autofocus="autofocus"
-						type="text" class="form-control" name="userName"></td>
+						type="text" class="form-control" name="userName" value="${usuario.userName}"></td>
 				</tr>
 
 				<tr>
 					<td>Senha</td>
 					<td><input required="required" autofocus="autofocus"
-						type="password" class="form-control" name="senha"></td>
+						type="password" class="form-control" name="senha" value="${usuario.senha}"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -53,7 +57,7 @@
 							<button type="submit" class="btn btn-success btn-md"
 								style="width: 200px; height: 35px">Salvar</button>
 							<button type="button" class="btn btn-danger btn-md"
-								onclick="window.location.href='../logon'"
+								onclick="window.location.href='../despesas/listar-todas'"
 								style="width: 200px; height: 35px">Cancelar</button>
 						</div>
 					</td>

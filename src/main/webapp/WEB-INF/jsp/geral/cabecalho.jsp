@@ -12,7 +12,6 @@
 <script src="<c:url value="/resource/js/bootstrap.min.js"/>"></script>
 <script src="<c:url value="/resource/js/sidebar.js"/>"></script>
 
-<!--<link href="/resource/css/bootstrap.min.css" rel="stylesheet">-->
 <title>Carteira Virtual</title>
 </head>
 <body>
@@ -26,6 +25,13 @@
 			<li class="sidebar-brand"><a
 				href="<c:url value="/despesas/listar-todas" />"> Carteira
 					Virtual </a></li>
+					
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown">Usuário <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href=" <c:url value="/usuario/perfil" /> ">Perfil</a></li>
+					<li><a href=" <c:url value="/usuario/grupoUsuario" />">Grupos Usuário</a></li>
+				</ul></li>		
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown">Credor <b class="caret"></b></a>
 				<ul class="dropdown-menu">

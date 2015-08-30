@@ -20,6 +20,36 @@
 
 <!-- Custom styles for this template -->
 <link href="<c:url value="/resource/css/signin.css"/>" rel="stylesheet">
+<style type="text/css">
+.profile-img-card {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 50px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.card-container.card {
+    max-width: 350px;
+    padding: 30px 30px;
+
+}
+.card {
+    background-color: #95B1CF;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+</style>
 
 </head>
 
@@ -28,12 +58,13 @@
 
 	<div class="container">
 
-
-		<form class="form-signin" action="login" method="POST">
+       <div class="card card-container"> 
+		<form class="form-signin " action="login" method="POST">
+		
 			<div align="center">
-				<img alt="Economia"
-					src="<c:url value="/resource/images/economizar.png"/>" width=305
-					height=200>
+				<img alt="Economia" class="profile-img-card"
+					src="<c:url value="/resource/images/economizar.png"/>" width=90
+					height=70>
 			</div>
 			<h2 class="form-signin-heading" align="center">
 				<FONT FACE="Tahoma" SIZE="4,5" COLOR="white">Bem Vindo a
@@ -50,12 +81,13 @@
 			<br>
 			<button class="btn btn-lg btn-primary btn-block" type="submit"
 				style="border: outset; 2px; #000;">Logar</button>
+			
 			<div align="center">
 				<a href=" <c:url value="/usuario/novousuario" /> "><FONT
 					COLOR="white">Cadastrar-se</FONT></a>
 			</div>
 		</form>
-
+		</div>
 	</div>
 
 </body>
