@@ -18,7 +18,10 @@ public class CredorController  {
 	
 	
 	@RequestMapping("novo")
-	public String nova(){
+	public String nova(Model model){
+		CredorService credorService = new CredorService();
+		List<Credor> credores = credorService.selecionarTodos();
+		model.addAttribute("credores",credores);
 		return "credor/novo-credor";
 	}
 	
@@ -40,7 +43,7 @@ public class CredorController  {
 		CredorService credorService = new CredorService();
 		credorService.incluir(credor);
 		
-		return "redirect:listar";
+		return "redirect:novo";
 	}
 	
 	

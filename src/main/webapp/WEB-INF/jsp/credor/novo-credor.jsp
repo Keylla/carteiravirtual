@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="container">
-		<h1>Novo Credor</h1>
+		<h1>Credor</h1>
 
 		<form action="adicionar" method="post">
 
@@ -31,8 +31,8 @@
 			<table>
 
 				<tr>
-					<td>Código</td>
-					<td><input type="text" class="form-control" name="id" disabled>
+					
+					<td><input type="hidden"  class="form-control" name="id" disabled>
 					</td>
 
 
@@ -53,7 +53,70 @@
 				</tr>
 
 			</table>
+	<br><br>		
+	<div class="container">
 
+		<div class="row">
+			<div class="col-lg-12">
+				
+				<table class="table table-striped">
+
+					<thead>
+
+						<tr>
+							<th>
+								<p>Nome Fantasia</p>
+							</th>
+					
+							<th>
+								<p>Endereço</p>
+							</th>
+						</tr>
+						
+
+					</thead>
+
+
+					<tbody>
+						<c:forEach var="credor" items="${credores}">
+
+							<tr>
+								<td>${credor.nomeFantasia}</td>
+								<td>${credor.endereco}</td>
+	                          
+	                          <td>
+	                          
+	                           <div class="dropdown pull-right">
+								  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								    Ações
+								    <span class="glyphicon glyphicon-collapse-down"></span>
+								  </button>
+								  
+								  
+								  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									
+									<li>
+								    <a href="form-altera?id=${credor.id}"><span class="glyphicon glyphicon-pencil pull-right"></span>Editar</a>
+								    </li>
+								    <li>
+								    <a href="remover?id=${credor.id}"><span class="glyphicon glyphicon-remove pull-right"></span>Excluir </a>
+								    </li>
+								  </ul>
+								</div>
+	                          </td>							   	
+							</tr>
+						</c:forEach>
+
+					</tbody>
+
+
+				</table>
+
+
+			</div>
+		</div>
+
+	</div>
 
 			<button type="submit" class="btn btn-success">Salvar</button>
 
