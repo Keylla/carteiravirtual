@@ -27,8 +27,8 @@
 		<form action="adicionar" method="post">
 
 
-
-			<table>
+		
+			<table >
 
 				<tr>
 					
@@ -41,35 +41,39 @@
 
 
 				<tr>
-					<td>Nome Fantasia</td>
+					<td><label>Nome Fantasia</label></td>
 					<td><input type="text" class="form-control"
 						name="nomeFantasia"></td>
 				</tr>
 
 				<tr>
-					<td>Endereço</td>
-					<td><input type="text" class="form-control" name="endereco"
+					<td ><label>Endereço</label></td>
+					<td ><input type="text" class="form-control" name="endereco"
 						value="${credor.endereco} "> <br></td>
 				</tr>
 
 			</table>
+		
 	<br><br>		
 	<div class="container">
 
 		<div class="row">
 			<div class="col-lg-12">
 				
-				<table class="table table-striped">
+				<table class="table">
 
 					<thead>
 
-						<tr>
+						<tr class="warning">
 							<th>
 								<p>Nome Fantasia</p>
 							</th>
 					
-							<th>
+							<th >
 								<p>Endereço</p>
+							</th>
+							<th >
+								<p></p>
 							</th>
 						</tr>
 						
@@ -80,7 +84,7 @@
 					<tbody>
 						<c:forEach var="credor" items="${credores}">
 
-							<tr>
+							<tr class="active">
 								<td>${credor.nomeFantasia}</td>
 								<td>${credor.endereco}</td>
 	                          
@@ -99,7 +103,7 @@
 								    <a href="form-altera?id=${credor.id}"><span class="glyphicon glyphicon-pencil pull-right"></span>Editar</a>
 								    </li>
 								    <li>
-								    <a href="remover?id=${credor.id}"><span class="glyphicon glyphicon-remove pull-right"></span>Excluir </a>
+								    <a href="remover?id=${credor.id}"><span class="glyphicon glyphicon-remove pull-right" style="color:red"></span>Excluir </a>
 								    </li>
 								  </ul>
 								</div>

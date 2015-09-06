@@ -40,11 +40,12 @@
 </head>
 <body
 	style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
+	<br>
 	<table id="tabelaDespesas" class="table">
 
 		<thead>
 
-			<tr>
+			<tr >
 				<th>
 					<p align=center>Data Despesa</p>
 				</th>
@@ -71,6 +72,9 @@
 				</th>
 				<th>
 					<p align=center>Fixa</p>
+				</th>
+				<th>
+					<p align=center></p>
 				</th>
 
 			</tr>
@@ -122,13 +126,21 @@
 				<c:if test="${despesa.flagMensal == 'on'}">
 					<td align=center>Sim</td>
 				</c:if>
-
+				
 				<c:choose>
 					<c:when test="${despesa.estadoDespesa != 'PAGO'}">
-						<td><a href="form-altera?id=${despesa.id}"> Editar </a></td>
-						<td><a href="remover?id=${despesa.id}"> Excluir </a></td>
-						<td><a class="efetuarPagamento" href="#"
-							onclick="efetuaClick(${despesa.id})"> Efetuar Pagamento </a></td>
+					          <td> <div class="dropdown pull-right">
+								  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								    Ações
+								    <span class="glyphicon glyphicon-collapse-down"></span>
+								  </button>								  
+								  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li> <a href="form-altera?id=${despesa.id}"><span class="glyphicon glyphicon-pencil pull-right"></span> Editar </a></li>
+									<li> <a href="remover?id=${despesa.id}"><span class="glyphicon glyphicon-remove pull-right" style="color:red"></span> Excluir </a></li>
+								    <li><a class="efetuarPagamento" href="#" onclick="efetuaClick(${despesa.id})"><span class="glyphicon glyphicon-usd pull-right" style="color:green" ></span> Pagar </a></li>
+								  </ul>
+								</div></td>
+						
 					</c:when>
 
 				</c:choose>
