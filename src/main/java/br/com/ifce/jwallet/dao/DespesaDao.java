@@ -398,7 +398,6 @@ public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFi
 	String sql = "select c.id_categoria, c.descricao, sum(d.vlr_despesa) total from tb_despesas d "
 			+ "join tb_categoria c on (c.id_categoria = d.id_categoria) "
 			+ "where d.dt_vencimento between ? and ? "
-			+ " and d.estado_despesa = 'EM_ABERTO'"
 			+ " and d.id_usuario = ?"
 			+ "group by c.id_categoria";
 	
@@ -440,8 +439,7 @@ public List<Despesa> selectCompetenciaValorByPeriodo(Calendar periodoInicial, Ca
 	List<Despesa> despesas = new ArrayList<Despesa>();
 	
 	String sql = "select to_char(dt_vencimento,'MM/yyyy') comp,to_date('01/'||to_char(dt_vencimento,'MM/yyyy'),'dd/MM/yyyy') dt_vencimento, sum(d.vlr_despesa) valor from tb_despesas d "
-			+ "where d.dt_vencimento between ? and ? "
-			+ " and d.estado_despesa = 'EM_ABERTO'"
+			+ "where d.dt_vencimento between ? and ? "		
 			+ " and id_usuario = ?"
 			+ " group by comp"
 			+ " order by comp";

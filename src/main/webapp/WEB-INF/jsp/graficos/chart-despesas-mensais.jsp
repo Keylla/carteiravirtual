@@ -62,7 +62,7 @@
 		</div>
 	</div>
 
-	<script language="JavaScript"> 
+	<script> 
  $(document).ready(function(){
      $("#bntGerarGelatorio").click(desenhaGrafico);
  });
