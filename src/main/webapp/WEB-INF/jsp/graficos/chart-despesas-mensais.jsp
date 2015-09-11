@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Grafico</title>
+<title>Gráfico</title>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="<c:url value="/resource/js/charts.js"/>"></script>
@@ -30,26 +30,26 @@
 	</div>
 
 	<div class="container">
-		<h3>Graficos Despesas por periodo</h3>
+		<h3>Gráficos Despesas por período</h3>
 		<p>
 		<div class="form-group col-md-4">
-			<input id="periodoInicial"  type="text"
+			<input id="periodoInicial"  type="text" 
 				class="form-control calendario" placeholder="Periodo Inicial" maxlength="10"
 				OnKeyPress="formatar(this, '##/##/####')"
-				onBlur="return doDateVenc(this.id,this.value, 4);">
+				onBlur="return doDateVenc(this.id,this.value, 4);"/>
 		</div>
 
 		<p>
 		<div class="form-group col-md-4">
-			<input id="periodoFinal"  type="text"
+			<input id="periodoFinal"  type="text" 
 				class="form-control calendario" placeholder="Periodo Final" maxlength="10"
 				OnKeyPress="formatar(this, '##/##/####')"
-				onBlur="return doDateVenc(this.id,this.value, 4);">
+				onBlur="return doDateVenc(this.id,this.value, 4);"/>
 		</div>
 
 		<p>
 			<button id="bntGerarGelatorio" type="submit" class="btn btn-success">Gerar
-				Graficos</button>
+				Gráficos</button>
 	</div>
 
 	<div class="row">
@@ -62,8 +62,8 @@
 		</div>
 	</div>
 
-	<script> 
- $(document).ready(function(){
+<script> 
+ $(document).ready(function(){	
      $("#bntGerarGelatorio").click(desenhaGrafico);
  });
 </script>

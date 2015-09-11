@@ -25,61 +25,48 @@
 		<h1>Credor</h1>
 
 		<form action="adicionar" method="post">
-
-
-		
-			<table >
-
-				<tr>
-					
-					<td><input type="hidden"  class="form-control" name="id" disabled>
-					</td>
-
-
-
-				</tr>
-
-
-				<tr>
-					<td><label>Nome Fantasia</label></td>
-					<td><input type="text" class="form-control"
-						name="nomeFantasia"></td>
-				</tr>
-
-				<tr>
-					<td ><label>Endereço</label></td>
-					<td ><input type="text" class="form-control" name="endereco"
-						value="${credor.endereco} "> <br></td>
-				</tr>
-
-			</table>
-		
-	<br><br>		
-	<div class="container">
+<div class="container">
 
 		<div class="row">
 			<div class="col-lg-12">
+				<div class="panel panel-primary">
+				  <div class="panel-heading">
+				 		 <table >
+				 		 <thead>
+				
+										<tr>
+											<th>
+												<input type="hidden"  class="form-control" name="id" disabled>
+													</th>
+											
+													<th class="col-lg-6">
+														<p>Nome Fantasia</p>
+														<input type="text" class="form-control"
+														name="nomeFantasia">
+													</th>
+													<th class="col-lg-6" >
+														<p>Endereço</p>
+														<input type="text" class="form-control" name="endereco"
+														value="${credor.endereco} "> 
+													</th>
+													<th>
+													<p><br></p>
+													<button type="submit" class="form-control btn btn-success">Salvar</button>
+													</th>
+												</tr>
+												
+						
+											</thead>
+						
+											
+									</table>
+									
+								</div>
+						  <div class="panel-body">
+		
+	
 				
 				<table class="table">
-
-					<thead>
-
-						<tr class="warning">
-							<th>
-								<p>Nome Fantasia</p>
-							</th>
-					
-							<th >
-								<p>Endereço</p>
-							</th>
-							<th >
-								<p></p>
-							</th>
-						</tr>
-						
-
-					</thead>
-
 
 					<tbody>
 						<c:forEach var="credor" items="${credores}">
@@ -121,8 +108,10 @@
 		</div>
 
 	</div>
+	</div>
+	</div>
 
-			<button type="submit" class="btn btn-success">Salvar</button>
+			
 
 		</form>
 

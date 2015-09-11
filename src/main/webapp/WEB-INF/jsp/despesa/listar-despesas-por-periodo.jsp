@@ -41,6 +41,7 @@
 <body
 	style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
 	<br>
+	
 	<table id="tabelaDespesas" class="table">
 
 		<thead>
@@ -167,6 +168,7 @@
 
 
 	</table>
+
 	<div id="transparencia">
 		<div id="pagamento" >
 		
@@ -218,4 +220,6 @@
 		});
 	 </script>
 
+
+	
 </body>

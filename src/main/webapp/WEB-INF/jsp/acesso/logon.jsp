@@ -75,7 +75,7 @@
 				required="required" autofocus="autofocus" type="text"
 				name="userName"> <label for="inputPassword" class="sr-only">senha</label>
 			<input id="inputPassword" class="form-control" placeholder="senha"
-				required="required" type="password" name="senha">
+				required="required" autofocus="autofocus" type="password" name="senha">
 			<form:errors path="senha" cssstyle="color: red;">
 			</form:errors>
 			<br>

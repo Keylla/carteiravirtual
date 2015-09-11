@@ -61,7 +61,7 @@ public class CredorController  {
 		CredorService credorService = new CredorService();
 		List<Credor> credores = credorService.selecionarTodos();
 		model.addAttribute("credores",credores);
-		return "credor/listar-credor";
+		return "credor/novo-credor";
 		
 	}
 	
@@ -70,7 +70,7 @@ public class CredorController  {
 	public String remover(Credor credor){		
 		CredorService credorService = new CredorService();
 		credorService.excluir(credor);
-		return "redirect:listar";
+		return "redirect:novo";
 		
 	}	
 

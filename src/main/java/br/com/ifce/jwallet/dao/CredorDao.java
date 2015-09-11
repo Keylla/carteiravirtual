@@ -85,6 +85,7 @@ public class CredorDao {
 			pstm.execute();
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 			throw new RuntimeException("Erro ao excluir credor no banco de dados.");
 		} finally {
