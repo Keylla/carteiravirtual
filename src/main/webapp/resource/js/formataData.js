@@ -3,7 +3,8 @@ var $JQuery = jQuery.noConflict()
 		$JQuery( ".calendario" ).datepicker({language: "pt-BR"});
 	});
 
-  /* Formatação para qualquer mascara */
+
+/* Formatação para qualquer mascara */
 
 	function formatar(src, mask) 
 	{
@@ -16,6 +17,7 @@ var $JQuery = jQuery.noConflict()
 			}
 	}
 	
+
 	/* Valida Data */
 	
 	var reDate4 = /^((0?[1-9]|[12]\d)\/(0?[1-9]|1[0-2])|30\/(0?[13-9]|1[0-2])|31\/(0?[13578]|1[02]))\/(19|20)?\d{2}$/;
