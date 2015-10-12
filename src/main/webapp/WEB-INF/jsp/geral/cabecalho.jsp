@@ -36,12 +36,7 @@
 		    <li><a href="<c:url value="/credor/novo" />">Credor</a></li>
 			
 
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
-				data-toggle="dropdown">Categoria <b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li><a href=" <c:url value="/categoria/nova" /> ">Cadastrar</a></li>
-					<li><a href=" <c:url value="/categoria/listar" />">Listar</a></li>
-				</ul></li>
+			<li><a href=" <c:url value="/categoria/nova" /> ">Categoria</a></li>
 
 
 			<li class="dropdown"><a href="#" class="dropdown-toggle"
