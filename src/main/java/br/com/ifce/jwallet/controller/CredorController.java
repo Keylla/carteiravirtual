@@ -48,12 +48,15 @@ public class CredorController  {
 	
 	
 	@RequestMapping("editar")
-	public String editar(@Valid Credor credor){
-		
+	public String editar(Long id, String nomeFantasia, String endereco){
+		Credor credor = new Credor();
+		credor.setId(id);
+		credor.setNomeFantasia(nomeFantasia);
+		credor.setEndereco(endereco);
 		CredorService credorService = new CredorService();				
 		credorService.alterar(credor);
 		
-		return "redirect:listar";
+		return "redirect:novo";
 	}
 	
 	@RequestMapping("listar")

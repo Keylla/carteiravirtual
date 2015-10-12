@@ -54,7 +54,6 @@ public class CredorDao {
 	}
 	
 	public void update(Credor credor) {
-		
 		String sql = "UPDATE TB_CREDOR SET NOME_FANTASIA = ?, ENDERECO = ?, ID_USUARIO = ?   WHERE ID_CREDOR = ?";
 		
 		try {
