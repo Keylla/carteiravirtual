@@ -45,7 +45,10 @@
 						       onBlur="return doDateVenc(this.id,this.value, 4);"/>
 					</div>
 					<p>
-					<button id="bntGerarGelatorio" onclick="checarDatas()" type="submit" class="btn btn-success">
+					<button id="bntGerarGelatorio"
+							onclick="checarDatas(document.getElementById('periodoInicial').value,document.getElementById('periodoFinal').value,1)" 
+							type="submit"
+							class="btn btn-success">
 						Gerar Gráficos
 					</button>
 				</div>
@@ -63,21 +66,6 @@
 			</div>
 		</div>
 		 
-		 <script>    
-			function checarDatas(){ 
-			    var data_1 = document.getElementById('periodoInicial').value;
-			    var data_2 = document.getElementById('periodoFinal').value;
-			    var Compara01 = parseInt(data_1.split("/")[2].toString() + data_1.split("/")[1].toString() + data_1.split("/")[0].toString());
-			    var Compara02 = parseInt(data_2.split("/")[2].toString() + data_2.split("/")[1].toString() + data_2.split("/")[0].toString());
-			 
-			    if (Compara01 < Compara02) {
-			    	$("#bntGerarGelatorio").click(desenhaGrafico);
-			    }
-			    else {
-			    	alert("Data final maior que inicial!\nPor favor digite corretamente a data!");
-			    }
-			   
-			}
-		</script>
+
 	</body>
 </html>

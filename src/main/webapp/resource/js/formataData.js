@@ -16,7 +16,29 @@ var $JQuery = jQuery.noConflict()
 				src.value += texto.substring(0,1);
 			}
 	}
-	
+
+	function checarDatas(data_1,data_2, tipo){ 
+	   
+	    var Compara01 = parseInt(data_1.split("/")[2].toString() + data_1.split("/")[1].toString() + data_1.split("/")[0].toString());
+	    var Compara02 = parseInt(data_2.split("/")[2].toString() + data_2.split("/")[1].toString() + data_2.split("/")[0].toString());
+	  if(tipo == 1){
+		  if (Compara01 < Compara02) {
+		    	$("#bntGerarGelatorio").click(desenhaGrafico);
+		    }
+		    else {
+		    	window.alert("Data final maior que inicial!\nPor favor digite corretamente a data!");
+		    }
+	  }
+	  else{
+		  if (Compara01 > Compara02) {
+			  window.alert("Data Vencimento maior que Data da Despesa!\nPor favor digite corretamente a data!");
+			  return false
+		    }
+		    
+	  }
+	   
+	   
+	}	
 
 	/* Valida Data */
 	

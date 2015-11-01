@@ -21,8 +21,6 @@
 <script type="text/javascript" src="../resource/js/formataData.js" charset="UTF-8"></script>
 
 
-
-
 </head>
 <body
 	style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
@@ -32,7 +30,12 @@
 	</div>
 
 
-	<form action="adicionar" method="post" class="form-inline" role="form">
+	<form id="novaDespesa" 
+		  action="adicionar" 
+		  method="post" 
+		  class="form-inline" 
+		  role="form" 
+		  onsubmit="return checarDatas(document.getElementById('dataDespesa').value,document.getElementById('dataVencimento').value,0)">
 		<div class="container">
 			<h1>Nova Despesa</h1>
 			<div>
@@ -77,6 +80,7 @@
 				</div>
 				<div class="form-group">
 					<label>Data da Despesa </label><br> <input
+					    id="dataDespesa"
 						style="width: 178px" type="text" class="form-control calendario"
 						name="dataDespesa" required="required" autofocus="autofocus"
 						maxlength="10" OnKeyPress="formatar(this, '##/##/####')"
@@ -84,6 +88,7 @@
 				</div>
 				<div class="form-group">
 					<label>Data de Vencimento </label><br> <input
+					    id="dataVencimento"
 						style="width: 178px" type="text" class="form-control calendario"
 						name="dataVencimento" maxlength="10"
 						OnKeyPress="formatar(this, '##/##/####')"
@@ -104,6 +109,7 @@
 				</div>
 				<div class="form-group">
 					<label>Data do Pagamento</label> <br> <input
+					    id="dataPagamento"
 						style="width: 178px" type="text" class="form-control calendario"
 						name="dataPagamento" maxlength="10"
 						OnKeyPress="formatar(this, '##/##/####')"
@@ -116,7 +122,7 @@
 					<textarea class="form-control" name="detalhe" rows="5"
 						style="width: 768px;"> </textarea>
 					<br> <br>
-					<button type="submit" class="btn btn-success">Salvar</button>
+					<button id="salvar" type="submit"   class="btn btn-success">Salvar</button>
 				</div>
 
 			</div>
