@@ -76,8 +76,7 @@
 				name="userName"> <label for="inputPassword" class="sr-only">senha</label>
 			<input id="inputPassword" class="form-control" placeholder="senha"
 				required="required" autofocus="autofocus" type="password" name="senha">
-			<form:errors path="senha" cssstyle="color: red;">
-			</form:errors>
+			
 			<br>
 			<button class="btn btn-lg btn-primary btn-block" type="submit"
 				style="border: outset; 2px; #000;">Logar</button>

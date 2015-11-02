@@ -15,11 +15,11 @@
 
 <link href="<c:url value="../resource/css/bootstrap.min.css"/>"rel="stylesheet">
 <link rel="stylesheet" href="../resource/css/jquery-ui.css" />
+<link rel="stylesheet" href="../resource/css/formData.css" />
 <script src="../resource/js/jquery-1.11.3.js"></script>
 <script src="../resource/js/jquery-ui.js"></script>
 <script type="text/javascript" src="../resource/js/datepickerPB.js" charset="UTF-8"></script>
 <script type="text/javascript" src="../resource/js/formataData.js" charset="UTF-8"></script>
-
 
 </head>
 <body
@@ -35,7 +35,12 @@
 		  method="post" 
 		  class="form-inline" 
 		  role="form" 
-		  onsubmit="return checarDatas(document.getElementById('dataDespesa').value,document.getElementById('dataVencimento').value,0)">
+		  onsubmit="return checaDataValDesp()">
+		<div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<strong>Data Vencimento maior que Data da Despesa!
+		<br>Por favor digite corretamente as datas!</strong>
+		</div>  
 		<div class="container">
 			<h1>Nova Despesa</h1>
 			<div>
@@ -127,7 +132,21 @@
 
 			</div>
 	</form>
-
+	
+	<script>
+	 function checaDataValDesp(){
+		 var dtVenc = document.getElementById('dataVencimento').value;
+		 var dtDesp = document.getElementById('dataDespesa').value;
+		 var compData = checarDatas(dtDesp, dtVenc);
+		if(compData == false){
+			document.getElementById('alert').style.display='block';
+			return false;
+			}
+		else
+			document.getElementById('alert').style.display='none';	
+		    return true;	
+	 } 
+	</script>
 
 </body>
 </html>

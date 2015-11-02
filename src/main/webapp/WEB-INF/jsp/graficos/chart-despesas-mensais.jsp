@@ -6,6 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="icon" href="<c:url value="/resource/images/icon_pagamento.ico"/>" type="image/x-icon" />
 		<link rel="stylesheet" href="../resource/css/jquery-ui.css" />
+		<link rel="stylesheet" href="../resource/css/formData.css" />
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script src="https://code.jquery.com/jquery.js"></script>
 		<script src="<c:url value="/resource/js/charts.js"/>"></script>
@@ -20,6 +21,14 @@
 		<div class="smallDiv">
 			<c:import url="../geral/cabecalho.jsp"></c:import>
 		</div>
+		<div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong>Data Final maior que Data da Inicial!
+				<br>Por favor digite corretamente as datas!
+			</strong>
+		</div> 
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="container">
@@ -46,7 +55,7 @@
 					</div>
 					<p>
 					<button id="bntGerarGelatorio"
-							onclick="checarDatas(document.getElementById('periodoInicial').value,document.getElementById('periodoFinal').value,1)" 
+							onclick="checaDataIniFinal()" 
 							type="submit"
 							class="btn btn-success">
 						Gerar Gráficos
@@ -66,6 +75,20 @@
 			</div>
 		</div>
 		 
-
+		<script type="text/javascript">
+			function checaDataIniFinal(){
+				 var dtIni = document.getElementById('periodoInicial').value;
+				 var dtFim = document.getElementById('periodoFinal').value;
+				 var compData = checarDatas(dtIni, dtFim);
+				if(compData == false){
+					document.getElementById('alert').style.display='block';
+					return false;
+					}
+				else
+					document.getElementById('alert').style.display='none';
+				    $("#bntGerarGelatorio").click(desenhaGrafico);	
+				    return true;	
+			 } 
+		</script>
 	</body>
 </html>
