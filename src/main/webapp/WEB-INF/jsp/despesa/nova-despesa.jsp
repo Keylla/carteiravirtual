@@ -37,9 +37,9 @@
 		  role="form" 
 		  onsubmit="return checaDataValDesp()">
 		<div id="alert" class="alert alert-danger alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<strong>Data Vencimento maior que Data da Despesa!
-		<br>Por favor digite corretamente as datas!</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>Data Vencimento maior que Data da Despesa!
+			<br>Por favor digite corretamente as datas!</strong>
 		</div>  
 		<div class="container">
 			<h1>Nova Despesa</h1>

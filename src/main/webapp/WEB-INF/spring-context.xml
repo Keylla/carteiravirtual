@@ -17,6 +17,11 @@
 		<bean class="br.com.ifce.jwallet.interceptor.AutorizadorInterceptor" />
 	</mvc:interceptors>
 
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
+    
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />

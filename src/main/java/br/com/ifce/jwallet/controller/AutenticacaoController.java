@@ -49,13 +49,10 @@ public class AutenticacaoController  {
 		
 		UsuarioValidator usuarioValidator = new UsuarioValidator();
 		usuarioValidator.validate(usuario, result);
-		
 		if (result.hasErrors()){
-			
 			List<ObjectError> erros = result.getAllErrors();
 			System.out.println(erros.get(0).getCode().toString());
 			System.out.println(erros.get(0).getDefaultMessage());
-	
 			return "/acesso/logon";
 		}else{
 			incluirUsuarioSessao(usuarioValidator.getusuarioBanco());

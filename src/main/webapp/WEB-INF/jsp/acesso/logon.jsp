@@ -1,93 +1,67 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon"
-	href="<c:url value="/resource/images/icon_pagamento.ico"/>"type="image/x-icon" />
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="<c:url value="/resource/images/icon_pagamento.ico"/>"type="image/x-icon" />
+		<link href="<c:url value="/resource/css/bootstrap.min.css"/>"rel="stylesheet">
+		<link href="<c:url value="/resource/css/signin.css"/>" rel="stylesheet">
+		<title>Carteira Virtual-Web</title>
+	</head>
 
+	<body style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
+		<div class="container">
+	        <div class="card card-container"> 
+		   		<form class="form-signin " action="login" method="POST" >
+					<div align="center">
+						<img alt="Economia"
+							 class="profile-img-card"
+							 src="<c:url value="/resource/images/economizar.png"/>"
+							 width=90
+						     height=70>
+					</div>
+					<h2 class="form-signin-heading" align="center">
+						<FONT FACE="Tahoma" SIZE="4,5" COLOR="white">Bem Vindo a Carteira Virtual!</FONT>
+					</h2>
+					<label for="inputEmail" class="sr-only">username</label> 
+					<input id="inputEmail" 
+						   class="form-control" 
+						   placeholder="usuario"
+					       required="required" 
+					       autofocus="autofocus"
+					       type="text"
+						   name="userName"/> 
+					<label for="inputPassword" class="sr-only">senha</label>
+					<input id="inputPassword" 
+						   class="form-control" 
+						   placeholder="senha"
+					       required="required" 
+					       autofocus="autofocus"
+					       type="password" 
+					       name="senha"/>
 
-<title>Carteira Virtual-web</title>
-
-<!-- Bootstrap core CSS -->
-<link href="<c:url value="/resource/css/bootstrap.min.css"/>"
-	rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="<c:url value="/resource/css/signin.css"/>" rel="stylesheet">
-<style type="text/css">
-.profile-img-card {
-    width: 140px;
-    height: 140px;
-    margin: 0 auto 50px;
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-}
-.card-container.card {
-    max-width: 350px;
-    padding: 30px 30px;
-
-}
-.card {
-    background-color: #95B1CF;
-    /* just in case there no content*/
-    padding: 20px 25px 30px;
-    margin: 0 auto 25px;
-    margin-top: 50px;
-    /* shadows and rounded borders */
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-</style>
-
-</head>
-
-<body
-	style="background-image: url('<c:url value="/resource/images/background6.png"/>');">
-
-	<div class="container">
-
-       <div class="card card-container"> 
-		<form class="form-signin " action="login" method="POST">
-		
-			<div align="center">
-				<img alt="Economia" class="profile-img-card"
-					src="<c:url value="/resource/images/economizar.png"/>" width=90
-					height=70>
+					<div class="has-error">
+						<form:errors path="usuario.userName" cssClass="alert alert-danger alert-dismissible" element="div"/>
+						<form:errors path="usuario.senha" cssClass="alert alert-danger alert-dismissible" element="div"/>
+	                </div>
+					<br>
+					<button class="btn btn-lg btn-primary btn-block" 
+							type="submit"
+							style="border: outset; 2px; #000;">Logar
+					</button>
+				
+					<div align="center">
+						<a href=" <c:url value="/usuario/novousuario" /> ">
+							<FONT COLOR="white">Cadastrar-se</FONT>
+						</a>
+					</div>
+				</form>
 			</div>
-			<h2 class="form-signin-heading" align="center">
-				<FONT FACE="Tahoma" SIZE="4,5" COLOR="white">Bem Vindo a
-					Carteira Virtual!</FONT>
-			</h2>
-			<label for="inputEmail" class="sr-only">username</label> <input
-				id="inputEmail" class="form-control" placeholder="usuario"
-				required="required" autofocus="autofocus" type="text"
-				name="userName"> <label for="inputPassword" class="sr-only">senha</label>
-			<input id="inputPassword" class="form-control" placeholder="senha"
-				required="required" autofocus="autofocus" type="password" name="senha">
-			
-			<br>
-			<button class="btn btn-lg btn-primary btn-block" type="submit"
-				style="border: outset; 2px; #000;">Logar</button>
-			
-			<div align="center">
-				<a href=" <c:url value="/usuario/novousuario" /> "><FONT
-					COLOR="white">Cadastrar-se</FONT></a>
-			</div>
-		</form>
 		</div>
-	</div>
-
-</body>
+	</body>
 </html>

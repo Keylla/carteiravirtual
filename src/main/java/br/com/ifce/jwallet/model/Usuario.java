@@ -1,6 +1,7 @@
 package br.com.ifce.jwallet.model;
 
 
+
 public class Usuario {
 
 	private Long id;
@@ -8,8 +9,6 @@ public class Usuario {
 	private String eMail;
 	private String userName;
 	private String senha;
-	
-	
 	
 	public String getNomeDoUsuario() {
 		return nomeDoUsuario;
