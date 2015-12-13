@@ -1,0 +1,37 @@
+
+#btn-salvar {
+	margin-top: 20px;
+}
+
+.grupo-despesa {
+	width: 350px;
+}
+
+.tabela-usuarios{
+    background: #FFF;
+    margin-top: 20px;
+    border-top: 4px solid #f4f4f4;	
+}
+.monetario  {
+    text-align: right;
+    width: 120px;
+    float: right;
+}
+
+.th-monetario   {
+    text-align: right;
+}
+    
+.cabecalho {
+    width: 100%;
+    font-size: 25px;
+    margin: 20px 0;
+}
+
+.th-pequeno {
+    width: 6px;
+}
+
+.alert {
+	display: none;
+}

@@ -34,7 +34,7 @@ public class UsuarioDao {
 			
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, usuario.getNomeDoUsuario());
-			pstm.setString(2, usuario.geteMail());
+			pstm.setString(2, usuario.getEmail());
 			pstm.setString(3, usuario.getUserName());
 			pstm.setString(4, usuario.getSenha());
 			
@@ -55,7 +55,7 @@ public class UsuarioDao {
 		try {
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, usuario.getNomeDoUsuario());
-			pstm.setString(2, usuario.geteMail());
+			pstm.setString(2, usuario.getEmail());
 			pstm.setString(3, usuario.getUserName());
 			pstm.setString(4, usuario.getSenha());
 			pstm.setLong(5, usuario.getId());
@@ -140,7 +140,7 @@ public class UsuarioDao {
 			usuario = new Usuario();
 			usuario.setId(rs.getLong(1));
 			usuario.setNomeDoUsuario(rs.getString(2));
-			usuario.seteMail(rs.getString(3));
+			usuario.setEmail(rs.getString(3));
 			usuario.setUserName(rs.getString(4));
 			usuario.setSenha(rs.getString(5));
 			  
@@ -176,7 +176,7 @@ public class UsuarioDao {
 				usuario = new Usuario();
 				usuario.setId(rs.getLong(1));
 				usuario.setNomeDoUsuario(rs.getString(2));
-				usuario.seteMail(rs.getString(3));
+				usuario.setEmail(rs.getString(3));
 				usuario.setUserName(rs.getString(4));
 				usuario.setSenha(rs.getString(5));
 			  
@@ -194,4 +194,40 @@ public class UsuarioDao {
 		
 	}	
 	
+	public Usuario selectByEmail(String email) {
+
+		Usuario usuario = null;
+		String sql = "SELECT * FROM TB_USUARIO WHERE E_MAIL = ?";
+		
+		
+		try {
+			
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, email);
+			
+			
+			ResultSet rs = pstm.executeQuery();
+			while(rs.next()){
+				
+				usuario = new Usuario();
+				usuario.setId(rs.getLong(1));
+				usuario.setNomeDoUsuario(rs.getString(2));
+				usuario.setEmail(rs.getString(3));
+				usuario.setUserName(rs.getString(4));
+				usuario.setSenha(rs.getString(5));
+			  
+			}
+							
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Não foi possivel selecionar informações do banco de dados.");
+		} finally {
+			ConnectionFactory.closeConnection(con, pstm);
+		}
+		
+		return usuario;
+		
+	}		
+
 }

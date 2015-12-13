@@ -32,4 +32,8 @@ public class UsuarioService {
 	public Usuario selecionarUsuario(String userName){
 		return dao.selectByUserName(userName);
 	}
+	
+	public Usuario selecionarPorEmail(String email){
+		return dao.selectByEmail(email);
+	}	
 }

@@ -7,44 +7,53 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.ifce.jwallet.model.Categoria;
 import br.com.ifce.jwallet.model.Credor;
 import br.com.ifce.jwallet.model.Despesa;
+import br.com.ifce.jwallet.model.GrupoUsuario;
+import br.com.ifce.jwallet.model.Usuario;
 import br.com.ifce.jwallet.service.CategoriaService;
 import br.com.ifce.jwallet.service.CredorService;
 import br.com.ifce.jwallet.service.DespesaService;
+import br.com.ifce.jwallet.service.GrupoUsuarioService;
 
 
 @Controller
 @RequestMapping("despesas")
 public class DespesaController {
-	
+
 	@RequestMapping("nova")
-	public String nova(Model model){
+	public String nova(Model model, HttpSession session){
+		
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 		CredorService cs = new CredorService();
 		CategoriaService catSerc = new CategoriaService(); 
+		GrupoUsuarioService grupoUsuarioService = new GrupoUsuarioService();
+		
+		List<GrupoUsuario> gruposUsuario = grupoUsuarioService.selecionarGruposDoUsuario(usuario);
 		
 		List<Credor> credores =  cs.selecionarTodos();
 		List<Categoria> categorias = catSerc.selecionarTodos();
 		
 		model.addAttribute("credores",credores);
 		model.addAttribute("categorias",categorias);
+		model.addAttribute("gruposUsuarioList", gruposUsuario);
+		model.addAttribute("usuario", usuario);
+		
 		return "despesa/nova-despesa";
 	}
 	
-	
-	
-	@RequestMapping("adicionar")
-	public String adicionar(Despesa despesa){
-
+	@RequestMapping(value="adicionar", method=RequestMethod.POST)
+	public void adicionar(Despesa despesa){
 		DespesaService ds = new DespesaService();
 		ds.incluir(despesa);
-
-		return "redirect:listar-todas";
 	}
 	
 	@RequestMapping("listar-todas")

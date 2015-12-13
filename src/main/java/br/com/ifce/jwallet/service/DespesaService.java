@@ -2,6 +2,7 @@ package br.com.ifce.jwallet.service;
 
 import java.util.Calendar;
 import java.util.List;
+
 import br.com.ifce.jwallet.dao.DespesaDao;
 import br.com.ifce.jwallet.model.Despesa;
 import br.com.ifce.jwallet.model.Despesa.EstadoDespesa;
@@ -106,6 +107,10 @@ public class DespesaService {
 		List<Despesa> despesas = dao.selectCompetenciaValorByPeriodo(periodoInicial, periodoFinal);
 		
 		return despesas;
-	}	
+	}
+	
+	public void incluirEmLote(List <Despesa> despesas){
+		dao.insertLote(despesas);
+	}
 	
 }

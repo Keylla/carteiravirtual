@@ -1,6 +1,14 @@
 var $JQuery = jQuery.noConflict()
 	$JQuery(function() {
 		$JQuery( ".calendario" ).datepicker({language: "pt-BR"});
+		$JQuery( ".calendario" ).keypress(function(){
+			formatar(this, '##/##/####');
+		});
+		
+		$JQuery( ".calendario" ).keypress(function(){
+			return doDateVenc(this.id,this.value, 4);
+		});
+		
 	});
 
 
@@ -22,7 +30,7 @@ var $JQuery = jQuery.noConflict()
 	    var Compara01 = parseInt(data_1.split("/")[2].toString() + data_1.split("/")[1].toString() + data_1.split("/")[0].toString());
 	    var Compara02 = parseInt(data_2.split("/")[2].toString() + data_2.split("/")[1].toString() + data_2.split("/")[0].toString());
 	  
-		  if (Compara01 < Compara02) 
+		  if (Compara01 <= Compara02) 
 		    	return true;
 		    else 
 		    	return false;  

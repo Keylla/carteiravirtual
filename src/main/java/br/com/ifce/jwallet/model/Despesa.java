@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 public class Despesa {
 	
@@ -30,6 +32,7 @@ public class Despesa {
 	private Calendar dataVencimento;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")	
 	private Calendar dataPagamento;
+	private Long idUsuario;
 	
 	
 	
@@ -81,7 +84,8 @@ public class Despesa {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
+	
+	@JsonFormat(pattern="dd/MM/yyyy", shape=JsonFormat.Shape.STRING, timezone="EST")
 	public Calendar getDataDespesa() {
 		return dataDespesa;
 	}
@@ -131,6 +135,7 @@ public class Despesa {
 		this.detalhe = detalhe;
 	}
 
+	@JsonFormat(pattern="dd/MM/yyyy", shape=JsonFormat.Shape.STRING, timezone="EST")
 	public Calendar getDataVencimento() {
 		return dataVencimento;
 	}
@@ -145,6 +150,14 @@ public class Despesa {
 
 	public void setEstadoDespesa(EstadoDespesa estadoDespesa) {
 		this.estadoDespesa = estadoDespesa;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	

@@ -9,13 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-import br.com.ifce.jwallet.dao.ConnectionFactory;
-import br.com.ifce.jwallet.dao.UsuarioDao;
-import br.com.ifce.jwallet.exception.DaoException;
-import br.com.ifce.jwallet.model.Credor;
+import br.com.ifce.jwallet.model.GrupoUsuario;
 import br.com.ifce.jwallet.model.Usuario;
-import br.com.ifce.jwallet.service.CredorService;
+import br.com.ifce.jwallet.service.GrupoUsuarioService;
 import br.com.ifce.jwallet.service.UsuarioService;
 
 
@@ -27,11 +26,6 @@ public class UsuarioController {
 	@RequestMapping("novousuario")
 	public String nova(){
 		return "usuario/novo-usuario";
-	}
-	
-	@RequestMapping("grupoUsuario")
-	public String grupo(){
-		return "usuario/grupoUsuario";
 	}
 	
 	@RequestMapping("adicionar")
@@ -75,4 +69,38 @@ public class UsuarioController {
 		
 	}
 
+	@RequestMapping("grupoUsuario")
+	public ModelAndView grupo(HttpSession session){
+		
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		
+		GrupoUsuarioService grpService = new GrupoUsuarioService();
+		List<GrupoUsuario> grupos = grpService.selecionarGruposDoUsuario(usuario);
+		ModelAndView modelAndView = new ModelAndView("usuario/grupoUsuario");
+		modelAndView.addObject("grupoUsuarioList", grupos);
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value="salvarGrupo", method= RequestMethod.POST)
+	public String salvarGrupo(GrupoUsuario grupoUsuario, HttpSession session){
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		
+		GrupoUsuarioService grpService = new GrupoUsuarioService();
+		grpService.incluir(grupoUsuario, usuario);
+		return "redirect:grupoUsuario";
+	}
+	
+	@RequestMapping(value="remover")
+	public String removerGrupo(GrupoUsuario grupoUsuario){
+		GrupoUsuarioService grpService = new GrupoUsuarioService();
+		grpService.excluir(grupoUsuario);
+		return "redirect:grupoUsuario"; 
+	}
+	
+	@RequestMapping(value="gerenciamentoGrupoUsuariosForm")
+	public String gerenciamentoGrupoUsuariosForm(){
+		return "gerenciamentoGrupoUsuarios";
+	}
+	
 }

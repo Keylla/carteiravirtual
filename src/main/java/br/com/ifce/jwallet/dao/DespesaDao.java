@@ -325,8 +325,8 @@ public List<Despesa> selectByPeriodo(int mes, int ano){
 		List<Despesa> despesas = new ArrayList<Despesa>();
 		
 		String sql = "SELECT * FROM TB_DESPESAS "
-				+ " WHERE  DT_VENCIMENTO BETWEEN ? AND ?  "
-		        + " OR (ESTADO_DESPESA = 'EM_ABERTO' AND TO_CHAR(DT_VENCIMENTO,'MMyyyy') < TO_CHAR(current_date,'MMyyyy')) "
+				+ " WHERE  ( DT_VENCIMENTO BETWEEN ? AND ?  "
+		        + " OR (ESTADO_DESPESA = 'EM_ABERTO' AND TO_CHAR(DT_VENCIMENTO,'MMyyyy') < TO_CHAR(current_date,'MMyyyy')) ) "
 				+ " AND ID_USUARIO = ?"
 				+ " ORDER BY DT_VENCIMENTO";
 		
@@ -407,7 +407,7 @@ public List<Despesa> selectByPeriodo(Calendar periodoInicial, Calendar periodoFi
 		pstm.setDate(1, new java.sql.Date(periodoInicial.getTimeInMillis()));
 		pstm.setDate(2, new java.sql.Date(periodoFinal.getTimeInMillis()));
 		pstm.setLong(3, userName.getId());
-ResultSet rs = pstm.executeQuery();
+		ResultSet rs = pstm.executeQuery();
 		
 		while(rs.next()){
 			
@@ -538,6 +538,113 @@ public List<Despesa> selectCompetenciaValorByPeriodo(Calendar periodoInicial, Ca
 		
 				
 		return desp;
+	}
+	
+	public void insertLote(List<Despesa> despesas){
+
+		String sql = "INSERT INTO TB_DESPESAS (ID_DESPESA, "
+				+"ID_CATEGORIA, "
+				+ "ID_CREDOR,  "
+				+ "DETALHE_DESPESA, "
+				+ "VLR_DESPESA, "
+				+ "DT_DESPESA ,"
+				+ "DT_VENCIMENTO, "
+				+ "ESTADO_DESPESA,"
+				+ "DT_PAGAMENTO, "
+				+ "VLR_PAGO, "
+				+ "FLAG_PARCELADO, "
+				+ "FLAG_MENSAL, "
+				+ "NUM_PARCELAS, "
+				+ "ID_USUARIO) VALUES"
+				+ "(NEXTVAL('SEQ_DESPESAS'),?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		
+		try {
+			
+			con.setAutoCommit(false);
+
+			for (Despesa despesa : despesas) {
+			
+				pstm = con.prepareStatement(sql);
+				pstm.setLong(1, despesa.getCategoria().getId());
+				if(despesa.getCredor().getId() != null){
+					pstm.setLong(2, despesa.getCredor().getId());
+				}
+				else{
+					pstm.setNull(2, Types.INTEGER);
+				} 
+				if (despesa.getDetalhe() != null){
+					pstm.setString(3, despesa.getDetalhe());
+				}
+				else{
+					pstm.setNull(3, Types.VARCHAR);
+				}
+				
+				pstm.setDouble(4, despesa.getValorDespesa());
+				pstm.setDate(5, new java.sql.Date(despesa.getDataDespesa().getTimeInMillis()));
+				if(despesa.getDataVencimento()!=null){
+					pstm.setDate(6, new java.sql.Date(despesa.getDataVencimento().getTimeInMillis()));
+				}
+				else{
+					pstm.setDate(6, new java.sql.Date(despesa.getDataDespesa().getTimeInMillis()));
+				}
+				if(despesa.getValorPago() == null || despesa.getValorPago()==0){
+				   pstm.setString(7, EstadoDespesa.EM_ABERTO.toString());
+				}
+				else{
+					if(despesa.getValorPago() ==  despesa.getValorDespesa()){
+						pstm.setString(7, EstadoDespesa.PAGO.toString());
+					}
+					else{
+						pstm.setString(7, EstadoDespesa.PAGO_PARCIAL.toString());
+					}
+				}
+				if(despesa.getDataPagamento() != null){
+					pstm.setDate(8, new java.sql.Date(despesa.getDataPagamento().getTimeInMillis()));
+				}
+				else{
+					pstm.setNull(8, Types.DATE);
+				}
+				if(despesa.getValorPago() != null){
+					pstm.setDouble(9, despesa.getValorPago());
+				}
+				else{
+					pstm.setNull(9, Types.DOUBLE);
+				}
+				if(despesa.getFlagParcelado() != null){
+					pstm.setString(10, despesa.getFlagParcelado());
+				}
+				else{
+					pstm.setString(10, "off");
+				}
+				if(despesa.getFlagMensal() != null){
+					pstm.setString(11, despesa.getFlagMensal());
+				}
+				else{
+					pstm.setString(11, "off");
+				}
+				if(despesa.getFlagParcelado() != null){
+					pstm.setInt(12, despesa.getNumParcelas());
+				}
+				else{
+					pstm.setNull(12, Types.INTEGER);
+				}
+				pstm.setLong(13, despesa.getIdUsuario());
+				
+				pstm.execute();
+				
+				
+			}
+			
+			con.commit();
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			ConnectionFactory.closeConnection(con, pstm);
+		}
+		
 	}
 	
 }

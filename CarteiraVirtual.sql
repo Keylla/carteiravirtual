@@ -53,7 +53,6 @@ CREATE TABLE TB_DESPESAS
   ID_DESPESA NUMERIC NOT NULL,
   ID_CATEGORIA NUMERIC NOT NULL,
   ID_CREDOR NUMERIC,
-  DETALHE_DESPESA CHARACTER VARYING(1024),
   VLR_DESPESA NUMERIC(12,2) NOT NULL,
   DT_DESPESA DATE NOT NULL,
   DT_VENCIMENTO DATE,
@@ -72,6 +71,29 @@ ALTER TABLE TB_DESPESAS ADD CONSTRAINT FK_DESPESAS_ID_CATEGORIA FOREIGN KEY(ID_C
 ALTER TABLE TB_DESPESAS ADD CONSTRAINT FK_DESPESAS_ID_USUARIO FOREIGN KEY(ID_USUARIO) REFERENCES TB_USUARIO(ID_USUARIO);
 
 
+﻿create table tb_grupo_usuario (
+  id_grupo_usuario numeric NOT NULL,
+  nome_grupo varchar(256) NOT NULL,
+  CONSTRAINT pk_id_grupo_usuario PRIMARY KEY(id_grupo_usuario)
+);
+
+
+create table tb_rel_grupos_usuarios (
+  id_grupos_usuarios numeric NOT NULL,
+  id_grupo_usuario numeric NOT NULL, 
+  id_usuario numeric NOT NULL,
+  usuario_apelido varchar(256),
+  CONSTRAINT pk_id_grupos_usuarios PRIMARY KEY(id_grupos_usuarios),
+  CONSTRAINT uk_id_grupo_id_usuario UNIQUE(id_grupo_usuario, id_usuario),
+  CONSTRAINT fk_usuario FOREIGN KEY (id_usuario)
+    REFERENCES tb_usuario(id_usuario),
+  CONSTRAINT fk_grupo_usuario FOREIGN KEY(id_grupo_usuario)
+    REFERENCES tb_grupo_usuario(id_grupo_usuario)
+);
+
+CREATE SEQUENCE seq_grupo_usuario;
+
+CREATE SEQUENCE seq_rel_grupos_usuarios;
 
 INSERT INTO TB_CATEGORIA VALUES (NEXTVAL('SEQ_CATEGORIA'), 'MORADIA');
 INSERT INTO TB_CATEGORIA VALUES (NEXTVAL('SEQ_CATEGORIA'), 'ALIMENTAÇÃO');
