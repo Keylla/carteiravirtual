@@ -45,8 +45,7 @@ $(document).ready(function() {
 		        		$('.grupo-validacao').removeClass('has-error');
 
 		        		usuario.idGrupoUsuario = $('#grupo-id').val();
-		        		usuario.apelido = $('#apelidoNovoUsuario').val();
-		        		
+		        		usuario.apelido = $('#apelidoNovoUsuario').val();        					        		
 		        		adicionarUsuarioNoGrupo(usuario);
 		        		
 
@@ -91,12 +90,17 @@ function carregarListaUsuarios(grupoUsuario){
 			$.each(listUsuario, function(i){
 				
 				usuario = listUsuario[i];
-				
+				var td3 = '';
 				var tr = $('<tr></tr>').addClass('resultado');
 				$(tr).data('usuario',usuario);
 				var td1 = $('<td> <input type="checkbox"> </td>');
 				var td2 = $('<td> <img src="../resource/images/avatar/' +usuario.avatar +'-min.png" > </td>');
+				if (usuario.apelido !=null){ 
 				var td3 = $('<td></td>').html(usuario.apelido);
+				}
+				else{
+					var td3 = $('<td></td>')	
+				}
 				var td4 = $('<td></td>').html(usuario.email);
 				var td5 = $('<td> <span class="glyphicon glyphicon-search"></span> </td>');
 
@@ -121,7 +125,12 @@ function carregarPerfil(usuario){
 	$('#usuario-id').val(usuario.id);
 	$('#usuario-foto').attr('src','../resource/images/avatar/'+ usuario.avatar +'.png')
 	$('#usuario-foto').show();
+	if (usuario.apelido !=null){ 
 	$('#usuario-apelido').text(usuario.apelido);
+	}
+	else{
+		$('#usuario-apelido').text('');
+	}
 	$('#usuario-nome').text(usuario.userName);
 	$('#usuario-email').text(usuario.email);
 }

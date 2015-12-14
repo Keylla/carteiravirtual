@@ -1,0 +1,12 @@
+.ico-usuario {
+    border: 2px solid #f5f5f5;
+    width: auto;
+    cursor: pointer;
+}
+
+.molde-img {
+    width: 128px;
+    height: 128px;
+    margin: 10px 0;
+    margin-right:18px;
+}

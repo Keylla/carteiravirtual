@@ -141,7 +141,7 @@
 				    
 				    <div id="usuario-control">
 				    	<input id="usuario-id" type="hidden">
-				        <p id="usuario-apelido" class="usuario-titulo" ></p>
+					    <p id="usuario-apelido" class="usuario-titulo" ></p>
 				        <img style="display: none" id="usuario-foto" src=""  class="usuario-margem img-rounded">
 				        <p id="usuario-nome" class="usuario-margem usuario-apelido"></p>
 				        <p id="usuario-email" class="usuario-margem usuario-email"></p>

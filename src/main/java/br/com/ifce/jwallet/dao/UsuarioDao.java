@@ -28,7 +28,7 @@ public class UsuarioDao {
 
 	public void insert(Usuario usuario) {
 		
-		String sql = "INSERT INTO TB_USUARIO (ID_USUARIO,NOME_USUARIO,E_MAIL, USERNAME, SENHA) VALUES (NEXTVAL('seq_usuario'),?,?,?,?)";
+		String sql = "INSERT INTO TB_USUARIO (ID_USUARIO,NOME_USUARIO,E_MAIL, USERNAME, SENHA, AVATAR) VALUES (NEXTVAL('seq_usuario'),?,?,?,?,?)";
 		
 		try {
 			
@@ -37,7 +37,7 @@ public class UsuarioDao {
 			pstm.setString(2, usuario.getEmail());
 			pstm.setString(3, usuario.getUserName());
 			pstm.setString(4, usuario.getSenha());
-			
+			pstm.setString(5, usuario.getAvatar());
 			pstm.execute();		
 			
 		} catch (SQLException e) {
