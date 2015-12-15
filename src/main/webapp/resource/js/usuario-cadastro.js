@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+	
     $('.img-usuario-lg').hide();
     
     $('.ico-usuario').width('auto');
@@ -21,5 +21,7 @@ function carregarUsuario(path){
     path = path.replace('-min','');
     $('.img-usuario-lg').attr('src',path);
     $('.img-usuario-lg').show();
-   
+
 }
+
+

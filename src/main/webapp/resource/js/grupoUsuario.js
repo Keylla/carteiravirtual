@@ -99,7 +99,7 @@ function carregarListaUsuarios(grupoUsuario){
 				var td3 = $('<td></td>').html(usuario.apelido);
 				}
 				else{
-					var td3 = $('<td></td>')	
+					var td3 = $('<td>Eu</td>')	
 				}
 				var td4 = $('<td></td>').html(usuario.email);
 				var td5 = $('<td> <span class="glyphicon glyphicon-search"></span> </td>');
@@ -129,7 +129,7 @@ function carregarPerfil(usuario){
 	$('#usuario-apelido').text(usuario.apelido);
 	}
 	else{
-		$('#usuario-apelido').text('');
+		$('#usuario-apelido').text('Eu');
 	}
 	$('#usuario-nome').text(usuario.userName);
 	$('#usuario-email').text(usuario.email);

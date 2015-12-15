@@ -40,7 +40,7 @@
 										<tbody>
 											<c:forEach var="grupoUsuario" items="${grupoUsuarioList}">
 												<tr>
-													<td>${grupoUsuario.nome} (10)</td>
+													<td>${grupoUsuario.nome}</td>
 												
 			                          				<td>	                          
 			                           					<div class="dropdown pull-right">

@@ -50,7 +50,7 @@ public class UsuarioDao {
 	
 	public void update(Usuario usuario) {
 		
-		String sql = "UPDATE TB_USUARIO SET NOME_USUARIO = ?,E_MAIL = ?, USERNAME = ?, SENHA = ?  WHERE ID_USUARIO = ?";
+		String sql = "UPDATE TB_USUARIO SET NOME_USUARIO = ?,E_MAIL = ?, USERNAME = ?, SENHA = ?, AVATAR = ?  WHERE ID_USUARIO = ?";
 		
 		try {
 			pstm = con.prepareStatement(sql);
@@ -58,8 +58,8 @@ public class UsuarioDao {
 			pstm.setString(2, usuario.getEmail());
 			pstm.setString(3, usuario.getUserName());
 			pstm.setString(4, usuario.getSenha());
-			pstm.setLong(5, usuario.getId());
-			
+			pstm.setString(5, usuario.getAvatar());
+			pstm.setLong(6, usuario.getId());
 			pstm.execute();
 			
 		} catch (SQLException e) {
@@ -143,7 +143,7 @@ public class UsuarioDao {
 			usuario.setEmail(rs.getString(3));
 			usuario.setUserName(rs.getString(4));
 			usuario.setSenha(rs.getString(5));
-			  
+			usuario.setAvatar(rs.getString(6)); 
 			}
 							
 			

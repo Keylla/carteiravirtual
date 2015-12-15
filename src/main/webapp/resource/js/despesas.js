@@ -134,7 +134,12 @@ function carregarListaUsuarios(grupoUsuario){
 				var tr = $('<tr></tr>').addClass('resultado');
 				$(tr).data('usuario',usuario);
 				var td1 = $('<td> <img src="../resource/images/avatar/' +usuario.avatar +'-min.png" > </td>');
-				var td2 = $('<td></td>').html(usuario.apelido);
+				if (usuario.apelido !=null){ 
+					var td2 = $('<td></td>').html(usuario.apelido);
+					}
+					else{
+						var td2 = $('<td>Eu</td>')	
+					}
 				var td3 = $('<td> <input id="usuario-id" type="hidden" value="'+usuario.id +'">  <input id="usuario-valor" value="0,00"  type="text" class="form-control monetario" value="0,00"> </td>');
 
 				$(tr).append(td1)
