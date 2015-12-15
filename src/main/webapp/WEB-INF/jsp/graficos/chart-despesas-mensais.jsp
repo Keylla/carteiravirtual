@@ -21,7 +21,7 @@
 		<div class="smallDiv">
 			<c:import url="../geral/cabecalho.jsp"></c:import>
 		</div>
-		<div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+		<div id="alert" class="alert alert-danger alert-dismissible" role="alert" style="display:none">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
@@ -79,16 +79,18 @@
 			function checaDataIniFinal(){
 				 var dtIni = document.getElementById('periodoInicial').value;
 				 var dtFim = document.getElementById('periodoFinal').value;
-				 var compData = checarDatas(dtIni, dtFim);
-				if(compData == false){
-					document.getElementById('alert').style.display='block';
-					return false;
-					}
-				else
-					document.getElementById('alert').style.display='none';
-				    $("#bntGerarGelatorio").click(desenhaGrafico);	
-				    return true;	
-			 } 
+				 
+					 var compData = checarDatas(dtIni, dtFim);
+					if(compData == false){
+						document.getElementById('alert').style.display='block';
+						return false;
+						}
+					else
+						document.getElementById('alert').style.display='none';
+					    $("#bntGerarGelatorio").click(desenhaGrafico);	
+					    return true;
+				 	
+			 } ;
 		</script>
 	</body>
 </html>
